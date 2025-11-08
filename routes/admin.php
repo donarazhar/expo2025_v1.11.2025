@@ -78,6 +78,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{id}/edit', [SertifikatController::class, 'edit'])->name('edit');
             Route::put('/{id}', [SertifikatController::class, 'update'])->name('update');
             Route::delete('/{id}', [SertifikatController::class, 'destroy'])->name('destroy');
+            Route::get('/{id}/pdf', [SertifikatController::class, 'downloadPdf'])->name('pdf');
             
             // Bulk actions
             Route::post('/bulk-generate', [SertifikatController::class, 'bulkGenerate'])->name('bulk-generate');

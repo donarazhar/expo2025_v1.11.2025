@@ -86,9 +86,9 @@ class SertifikatController extends Controller
     /**
      * Display the specified sertifikat
      */
-    public function show($id)
+    public function show($id_sertifikat)
     {
-        $sertifikat = ESertifikat::with('peserta')->findOrFail($id);
+        $sertifikat = ESertifikat::with('peserta')->findOrFail($id_sertifikat);
         
         return view('admin.sertifikat.show', compact('sertifikat'));
     }
@@ -123,9 +123,9 @@ class SertifikatController extends Controller
     /**
      * Remove the specified sertifikat
      */
-    public function destroy($id)
+    public function destroy($id_sertifikat)
     {
-        $sertifikat = ESertifikat::findOrFail($id);
+        $sertifikat = ESertifikat::findOrFail($id_sertifikat);
         $sertifikat->delete();
 
         return redirect()->route('admin.sertifikat.index')
@@ -234,9 +234,9 @@ class SertifikatController extends Controller
     /**
      * Download sertifikat PDF
      */
-    public function downloadPdf($id)
+    public function downloadPdf($id_sertifikat)
     {
-        $sertifikat = ESertifikat::with('peserta')->findOrFail($id);
+        $sertifikat = ESertifikat::with('peserta')->findOrFail($id_sertifikat);
         
         // Generate PDF view
         $html = view('admin.sertifikat.pdf', compact('sertifikat'))->render();

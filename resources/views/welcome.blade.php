@@ -1,530 +1,884 @@
 @extends('layouts.app')
 
-@section('title', 'Al Azhar Expo 2025 - Daftar Sekarang')
-@section('description', 'Bergabunglah dengan Al Azhar Expo 2025, event pendidikan dan inovasi terbesar tahun ini. Daftar sekarang dan dapatkan sertifikat digital!')
+@section('title', 'Al Azhar Expo 2025')
+@section('description',
+    'Sinergi Pendidikan, Dakwah, dan Sosial: Beradab dalam Kemodernan, Siap Menjawab Tantangan Masa
+    Depan')
 
 @section('content')
 
-<!-- Hero Section -->
-<section id="hero" class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-azhar-blue via-azhar-blue-600 to-azhar-blue-700 overflow-hidden pt-20">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
-    </div>
-    
-    <div class="section-container relative z-10">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <!-- Left Content -->
-            <div class="text-white space-y-6 animate-slide-in-left">
-                <div class="inline-block">
-                    <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold">
-                        📅 4-6 Desember 2025
-                    </span>
-                </div>
-                
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                    Al Azhar Expo
-                    <span class="block text-azhar-gold">2025</span>
-                </h1>
-                
-                <p class="text-lg md:text-xl text-azhar-blue-50 leading-relaxed mb-2">
-                    <strong>Al Azhar Inspirasi Bangsa</strong>
-                </p>
-                
-                <p class="text-base md:text-lg text-azhar-blue-100 leading-relaxed">
-                    Momentum kolaborasi seluruh elemen Al Azhar untuk menunjukkan karya, gagasan, dan inovasi yang menginspirasi umat, bangsa, dan negeri melalui sinergi pendidikan, dakwah, dan sosial
-                </p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 pt-4">
-                    <a href="#daftar" class="bg-white text-azhar-blue px-8 py-4 rounded-azhar font-bold text-lg hover:bg-azhar-blue-50 transition-all duration-300 shadow-azhar-lg hover:shadow-2xl transform hover:-translate-y-1 text-center">
-                        Daftar Sekarang
-                        <svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                        </svg>
-                    </a>
-                    <a href="#tentang" class="border-2 border-white text-white px-8 py-4 rounded-azhar font-bold text-lg hover:bg-white hover:text-azhar-blue transition-all duration-300 text-center">
-                        Pelajari Lebih Lanjut
-                    </a>
-                </div>
-                
-                <!-- Stats -->
-                <div class="grid grid-cols-3 gap-6 pt-8">
-                    <div class="text-center">
-                        <div class="counter text-3xl md:text-4xl font-bold" data-target="5000">0</div>
-                        <div class="text-sm text-azhar-blue-100 mt-1">Peserta</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="counter text-3xl md:text-4xl font-bold" data-target="50">0</div>
-                        <div class="text-sm text-azhar-blue-100 mt-1">Pembicara</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="counter text-3xl md:text-4xl font-bold" data-target="100">0</div>
-                        <div class="text-sm text-azhar-blue-100 mt-1">Booth</div>
-                    </div>
-                </div>
+    <!-- Hero Section -->
+    <section id="hero"
+        class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0053C5] via-[#003D91] to-[#002961] overflow-hidden pt-20">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0"
+                style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
             </div>
-            
-            <!-- Right Content - Illustration -->
-            <div class="animate-slide-in-right hidden lg:block">
-                <div class="relative">
-                    <div class="absolute inset-0 bg-white/10 backdrop-blur-lg rounded-3xl transform rotate-6"></div>
-                    <div class="relative bg-white rounded-3xl p-8 shadow-2xl">
-                        <div class="space-y-4">
-                            <div class="flex items-center space-x-4 p-4 bg-azhar-blue-50 rounded-xl">
-                                <div class="w-12 h-12 bg-azhar-blue rounded-lg flex items-center justify-center">
-                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                                    </svg>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-semibold text-azhar-blue">Workshop Interaktif</h4>
-                                    <p class="text-sm text-gray-600">Belajar langsung dari ahli</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center space-x-4 p-4 bg-azhar-blue-50 rounded-xl">
-                                <div class="w-12 h-12 bg-azhar-blue rounded-lg flex items-center justify-center">
-                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                                    </svg>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-semibold text-azhar-blue">Networking</h4>
-                                    <p class="text-sm text-gray-600">Bertemu dengan profesional</p>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center space-x-4 p-4 bg-azhar-blue-50 rounded-xl">
-                                <div class="w-12 h-12 bg-azhar-blue rounded-lg flex items-center justify-center">
-                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                                    </svg>
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-semibold text-azhar-blue">E-Sertifikat</h4>
-                                    <p class="text-sm text-gray-600">Sertifikat digital gratis</p>
-                                </div>
-                            </div>
+        </div>
+
+        <div class="section-container relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="text-white space-y-6">
+                    <div class="inline-block">
+                        <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold">
+                            🎓 4-6 Desember 2025
+                        </span>
+                    </div>
+
+                    <h1 class="text-5xl md:text-6xl font-bold leading-tight">
+                        Al Azhar Expo 2025
+                    </h1>
+
+                    <div class="text-2xl md:text-3xl font-semibold text-white">
+                        Al Azhar Inspirasi Bangsa
+                    </div>
+
+                    <p class="text-xl text-white/90 leading-relaxed">
+                        Sinergi Pendidikan, Dakwah, dan Sosial:<br>
+                        <span class="font-semibold">Beradab dalam Kemodernan,<br>Siap Menjawab Tantangan Masa Depan</span>
+                    </p>
+
+                    <div class="flex items-center space-x-4 text-white/90">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span>Masjid Agung Al Azhar, Jakarta</span>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#register"
+                            class="bg-white text-[#0053C5] px-8 py-4 rounded-lg font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl">
+                            Daftar Sekarang
+                        </a>
+                        <a href="#tentang"
+                            class="bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/30 transition-all duration-300 border-2 border-white/50">
+                            Pelajari Lebih Lanjut
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Content - Image Placeholder -->
+                <div class="hidden lg:block">
+                    <div class="relative">
+                        <div
+                            class="w-full h-96 bg-white/10 backdrop-blur-sm rounded-2xl flex items-center justify-center border-4 border-white/20">
+                            <svg class="w-32 h-32 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                </path>
+                            </svg>
+                        </div>
+                        <!-- Floating Stats -->
+                        <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-2xl">
+                            <div class="text-[#0053C5] font-bold text-3xl">5,000+</div>
+                            <div class="text-gray-600 text-sm">Target Peserta</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Scroll Indicator -->
-    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <a href="#tentang" class="text-white opacity-75 hover:opacity-100 transition-opacity">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
             </svg>
-        </a>
-    </div>
-</section>
+        </div>
+    </section>
 
-<!-- Why Join Section -->
-<section id="tentang" class="section-container bg-white reveal">
-    <div class="text-center mb-16">
-        <span class="text-azhar-blue font-semibold text-sm uppercase tracking-wider">Mengapa Harus Ikut?</span>
-        <h2 class="section-title mt-2">
-            Alasan Bergabung dengan <span class="gradient-text">Al Azhar Expo 2025</span>
-        </h2>
-        <p class="section-subtitle">
-            Dapatkan pengalaman berharga yang akan membentuk masa depan Anda
-        </p>
-    </div>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Feature 1 -->
-        <div class="card group hover:scale-105 transition-transform duration-300">
-            <div class="w-16 h-16 bg-azhar-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-azhar-blue group-hover:scale-110 transition-all duration-300">
-                <svg class="w-8 h-8 text-azhar-blue group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                </svg>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Wawasan Baru</h3>
-            <p class="text-gray-600 leading-relaxed">
-                Dapatkan perspektif terbaru tentang pendidikan dan teknologi dari para ahli terkemuka di bidangnya.
-            </p>
-        </div>
-        
-        <!-- Feature 2 -->
-        <div class="card group hover:scale-105 transition-transform duration-300">
-            <div class="w-16 h-16 bg-azhar-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-azhar-blue group-hover:scale-110 transition-all duration-300">
-                <svg class="w-8 h-8 text-azhar-blue group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
-                </svg>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Networking Luas</h3>
-            <p class="text-gray-600 leading-relaxed">
-                Bangun koneksi profesional dengan ribuan peserta dari berbagai institusi pendidikan dan industri.
-            </p>
-        </div>
-        
-        <!-- Feature 3 -->
-        <div class="card group hover:scale-105 transition-transform duration-300">
-            <div class="w-16 h-16 bg-azhar-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-azhar-blue group-hover:scale-110 transition-all duration-300">
-                <svg class="w-8 h-8 text-azhar-blue group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                </svg>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Pengalaman Praktis</h3>
-            <p class="text-gray-600 leading-relaxed">
-                Ikuti workshop hands-on dan demo produk terbaru yang langsung bisa Anda praktikkan.
-            </p>
-        </div>
-        
-        <!-- Feature 4 -->
-        <div class="card group hover:scale-105 transition-transform duration-300">
-            <div class="w-16 h-16 bg-azhar-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-azhar-blue group-hover:scale-110 transition-all duration-300">
-                <svg class="w-8 h-8 text-azhar-blue group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path>
-                </svg>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Hadiah Menarik</h3>
-            <p class="text-gray-600 leading-relaxed">
-                Kesempatan memenangkan berbagai doorprize menarik dan kompetisi berhadiah jutaan rupiah.
-            </p>
-        </div>
-        
-        <!-- Feature 5 -->
-        <div class="card group hover:scale-105 transition-transform duration-300">
-            <div class="w-16 h-16 bg-azhar-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-azhar-blue group-hover:scale-110 transition-all duration-300">
-                <svg class="w-8 h-8 text-azhar-blue group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                </svg>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Sertifikat Digital</h3>
-            <p class="text-gray-600 leading-relaxed">
-                Dapatkan e-sertifikat resmi yang dapat digunakan untuk portofolio profesional Anda.
-            </p>
-        </div>
-        
-        <!-- Feature 6 -->
-        <div class="card group hover:scale-105 transition-transform duration-300">
-            <div class="w-16 h-16 bg-azhar-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-azhar-blue group-hover:scale-110 transition-all duration-300">
-                <svg class="w-8 h-8 text-azhar-blue group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Gratis 100%</h3>
-            <p class="text-gray-600 leading-relaxed">
-                Tidak ada biaya pendaftaran! Semua fasilitas dan materi dapat diakses secara gratis untuk semua peserta.
-            </p>
-        </div>
-    </div>
-</section>
+    <!-- Event Info Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="section-container">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Waktu -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all border-t-4 border-[#0053C5]">
+                    <div class="w-16 h-16 bg-[#0053C5]/10 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-[#0053C5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Waktu Pelaksanaan</h3>
+                    <p class="text-gray-600">Kamis - Sabtu</p>
+                    <p class="text-2xl font-bold text-[#0053C5] mt-2">4-6 Desember 2025</p>
+                </div>
 
-<!-- Schedule & Location Section -->
-<section id="jadwal" class="section-container bg-gradient-to-br from-gray-50 to-azhar-blue-50 reveal">
-    <div class="text-center mb-16">
-        <span class="text-azhar-blue font-semibold text-sm uppercase tracking-wider">Informasi Event</span>
-        <h2 class="section-title mt-2">
-            Jadwal & <span class="gradient-text">Lokasi</span>
-        </h2>
-        <p class="section-subtitle">
-            Catat tanggal dan tempat pelaksanaan event agar tidak ketinggalan
-        </p>
-    </div>
-    
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-        <!-- Schedule Card -->
-        <div class="bg-white rounded-2xl shadow-azhar-lg p-8 space-y-6">
-            <div class="flex items-center space-x-4">
-                <div class="w-16 h-16 bg-azhar-blue rounded-xl flex items-center justify-center">
-                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-900">Jadwal Event</h3>
-                    <p class="text-gray-600">3 Hari Penuh Inspirasi</p>
-                </div>
-            </div>
-            
-            <div class="space-y-4">
-                <!-- Day 1 -->
-                <div class="flex items-start space-x-4 p-4 bg-azhar-blue-50 rounded-xl">
-                    <div class="flex-shrink-0 w-12 h-12 bg-azhar-blue text-white rounded-lg flex items-center justify-center font-bold">
-                        15
+                <!-- Tempat -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all border-t-4 border-[#0053C5]">
+                    <div class="w-16 h-16 bg-[#0053C5]/10 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-[#0053C5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
                     </div>
-                    <div class="flex-1">
-                        <h4 class="font-bold text-gray-900">Hari Pertama - Opening & Keynote</h4>
-                        <p class="text-sm text-gray-600 mt-1">Sabtu, 15 Februari 2025</p>
-                        <p class="text-sm text-gray-600">08:00 - 17:00 WIB</p>
-                        <ul class="mt-2 space-y-1 text-sm text-gray-600">
-                            <li>• Pembukaan & Sambutan</li>
-                            <li>• Keynote Speech oleh Prof. Dr. Ahmad</li>
-                            <li>• Panel Diskusi: Masa Depan Pendidikan</li>
-                        </ul>
-                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Lokasi Event</h3>
+                    <p class="text-gray-600">Masjid Agung Al Azhar</p>
+                    <p class="text-sm text-gray-500 mt-2">Aula, Kelas, dan Lapangan Hijau</p>
                 </div>
-                
-                <!-- Day 2 -->
-                <div class="flex items-start space-x-4 p-4 bg-azhar-blue-50 rounded-xl">
-                    <div class="flex-shrink-0 w-12 h-12 bg-azhar-blue text-white rounded-lg flex items-center justify-center font-bold">
-                        16
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="font-bold text-gray-900">Hari Kedua - Workshop & Exhibition</h4>
-                        <p class="text-sm text-gray-600 mt-1">Minggu, 16 Februari 2025</p>
-                        <p class="text-sm text-gray-600">08:00 - 17:00 WIB</p>
-                        <ul class="mt-2 space-y-1 text-sm text-gray-600">
-                            <li>• Workshop: AI dalam Pendidikan</li>
-                            <li>• Pameran Produk & Inovasi</li>
-                            <li>• Networking Session</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Day 3 -->
-                <div class="flex items-start space-x-4 p-4 bg-azhar-blue-50 rounded-xl">
-                    <div class="flex-shrink-0 w-12 h-12 bg-azhar-blue text-white rounded-lg flex items-center justify-center font-bold">
-                        17
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="font-bold text-gray-900">Hari Ketiga - Competition & Closing</h4>
-                        <p class="text-sm text-gray-600 mt-1">Senin, 17 Februari 2025</p>
-                        <p class="text-sm text-gray-600">08:00 - 16:00 WIB</p>
-                        <ul class="mt-2 space-y-1 text-sm text-gray-600">
-                            <li>• Kompetisi Inovasi Pendidikan</li>
-                            <li>• Pengumuman Pemenang</li>
-                            <li>• Penutupan & Pembagian Sertifikat</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Location Card -->
-        <div class="bg-white rounded-2xl shadow-azhar-lg p-8 space-y-6">
-            <div class="flex items-center space-x-4">
-                <div class="w-16 h-16 bg-azhar-blue rounded-xl flex items-center justify-center">
-                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-900">Lokasi Event</h3>
-                    <p class="text-gray-600">Mudah Diakses</p>
-                </div>
-            </div>
-            
-            <div class="space-y-4">
-                <div class="p-6 bg-azhar-blue-50 rounded-xl">
-                    <h4 class="font-bold text-gray-900 mb-2">Universitas Al Azhar Indonesia</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Jl. Sisingamangaraja, Kebayoran Baru<br>
-                        Jakarta Selatan 12110, DKI Jakarta<br>
-                        Indonesia
-                    </p>
-                    
-                    <div class="mt-4 space-y-2">
-                        <div class="flex items-center text-sm text-gray-600">
-                            <svg class="w-5 h-5 mr-2 text-azhar-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                            </svg>
-                            (021) 7279-1315
-                        </div>
-                        <div class="flex items-center text-sm text-gray-600">
-                            <svg class="w-5 h-5 mr-2 text-azhar-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                            </svg>
-                            info@alazharexpo.com
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Map -->
-                <div class="rounded-xl overflow-hidden shadow-lg">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.9837268324254!2d106.79714131471783!3d-6.265859295471494!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f1b8e1a1e1e1%3A0x1a1a1a1a1a1a1a1a!2sUniversitas%20Al%20Azhar%20Indonesia!5e0!3m2!1sen!2sid!4v1234567890123!5m2!1sen!2sid" 
-                        width="100%" 
-                        height="250" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy"
-                        class="w-full">
-                    </iframe>
-                </div>
-                
-                <!-- Transportation -->
-                <div class="p-4 bg-green-50 border-l-4 border-green-500 rounded">
-                    <p class="text-sm font-semibold text-green-800 mb-1">Akses Transportasi:</p>
-                    <p class="text-sm text-green-700">
-                        • Stasiun MRT Haji Nawi (15 menit jalan kaki)<br>
-                        • Halte TransJakarta Sisingamangaraja<br>
-                        • Parkir kendaraan tersedia
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Registration Form Section -->
-<section id="daftar" class="section-container bg-white reveal" x-data="registrationForm()">
-    <div class="text-center mb-16">
-        <span class="text-azhar-blue font-semibold text-sm uppercase tracking-wider">Pendaftaran</span>
-        <h2 class="section-title mt-2">
-            Daftar <span class="gradient-text">Sekarang</span>
-        </h2>
-        <p class="section-subtitle">
-            Isi formulir di bawah ini untuk mendaftar. Proses pendaftaran hanya memakan waktu 2 menit!
-        </p>
-    </div>
-    
-    <div class="max-w-3xl mx-auto">
-        <!-- Success Message -->
-        <div x-show="success" 
-             x-transition
-             id="success-message"
-             class="mb-8 p-6 bg-green-50 border-2 border-green-500 rounded-azhar">
-            <div class="flex items-start space-x-4">
-                <div class="flex-shrink-0">
-                    <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                    </svg>
-                </div>
-                <div class="flex-1">
-                    <h3 class="text-lg font-bold text-green-800 mb-2">Pendaftaran Berhasil! 🎉</h3>
-                    <p class="text-green-700 mb-3">
-                        Terima kasih telah mendaftar! ID Pendaftaran Anda adalah: <strong x-text="registrationId"></strong>
-                    </p>
-                    <p class="text-sm text-green-600">
-                        Kami telah mengirim email konfirmasi beserta QR Code ke alamat email Anda. 
-                        Silakan cek inbox atau folder spam Anda.
-                    </p>
+                <!-- Tema -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all border-t-4 border-[#0053C5]">
+                    <div class="w-16 h-16 bg-[#0053C5]/10 rounded-full flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-[#0053C5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Tema Event</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">Sinergi Pendidikan, Dakwah, dan Sosial: Beradab dalam
+                        Kemodernan</p>
                 </div>
             </div>
         </div>
-        
-        <!-- Registration Form -->
-        <div class="bg-white rounded-2xl shadow-azhar-lg p-8 md:p-10">
-            <form @submit.prevent="submitForm" class="space-y-6">
-                <!-- Nama Lengkap -->
-                <div>
-                    <label for="nama_lengkap" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Nama Lengkap <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        id="nama_lengkap"
-                        x-model="formData.nama_lengkap"
-                        :class="{ 'border-red-500': errors.nama_lengkap }"
-                        class="input-field"
-                        placeholder="Masukkan nama lengkap Anda"
-                        required>
-                    <p x-show="errors.nama_lengkap" class="mt-1 text-sm text-red-500" x-text="errors.nama_lengkap"></p>
-                </div>
-                
-                <!-- Email -->
-                <div>
-                    <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Email <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                        type="email" 
-                        id="email"
-                        x-model="formData.email"
-                        :class="{ 'border-red-500': errors.email }"
-                        class="input-field"
-                        placeholder="nama@email.com"
-                        required>
-                    <p x-show="errors.email" class="mt-1 text-sm text-red-500" x-text="errors.email"></p>
-                </div>
-                
-                <!-- Nomor HP -->
-                <div>
-                    <label for="no_hp" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Nomor Handphone <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                        type="tel" 
-                        id="no_hp"
-                        x-model="formData.no_hp"
-                        :class="{ 'border-red-500': errors.no_hp }"
-                        class="input-field"
-                        placeholder="081234567890"
-                        required>
-                    <p x-show="errors.no_hp" class="mt-1 text-sm text-red-500" x-text="errors.no_hp"></p>
-                    <p class="mt-1 text-xs text-gray-500">Format: 08xxxxxxxxxx atau +62xxxxxxxxxx</p>
-                </div>
-                
-                <!-- Asal Instansi -->
-                <div>
-                    <label for="asal_instansi" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Asal Instansi/Sekolah/Perusahaan <span class="text-red-500">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        id="asal_instansi"
-                        x-model="formData.asal_instansi"
-                        :class="{ 'border-red-500': errors.asal_instansi }"
-                        class="input-field"
-                        placeholder="Nama instansi/sekolah/perusahaan Anda"
-                        required>
-                    <p x-show="errors.asal_instansi" class="mt-1 text-sm text-red-500" x-text="errors.asal_instansi"></p>
-                </div>
-                
-                <!-- Terms -->
-                <div class="flex items-start space-x-3 p-4 bg-azhar-blue-50 rounded-lg">
-                    <input 
-                        type="checkbox" 
-                        id="terms"
-                        class="mt-1 w-4 h-4 text-azhar-blue border-gray-300 rounded focus:ring-azhar-blue"
-                        required>
-                    <label for="terms" class="text-sm text-gray-700">
-                        Saya menyetujui <a href="#" class="text-azhar-blue font-semibold hover:underline">syarat dan ketentuan</a> 
-                        serta <a href="#" class="text-azhar-blue font-semibold hover:underline">kebijakan privasi</a> Al Azhar Expo 2025
-                    </label>
-                </div>
-                
-                <!-- Submit Button -->
-                <button 
-                    type="submit"
-                    :disabled="loading"
-                    :class="{ 'opacity-50 cursor-not-allowed': loading }"
-                    class="w-full btn-primary text-lg py-4 flex items-center justify-center space-x-2">
-                    <span x-show="!loading">Daftar Sekarang</span>
-                    <span x-show="loading" class="flex items-center space-x-2">
-                        <span class="spinner w-5 h-5 border-2"></span>
-                        <span>Memproses...</span>
-                    </span>
-                    <svg x-show="!loading" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                    </svg>
-                </button>
-                
-                <p class="text-center text-sm text-gray-500">
-                    Dengan mendaftar, Anda akan menerima email konfirmasi beserta QR Code untuk absensi
+    </section>
+
+    <!-- Tentang Event Section -->
+    <section id="tentang" class="py-20 bg-white">
+        <div class="section-container">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Tentang Al Azhar Expo 2025</h2>
+                <div class="w-24 h-1 bg-[#0053C5] mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Event kolaboratif yang menggabungkan pameran karya, talkshow nasional, lomba, dan kegiatan khusus untuk
+                    menginspirasi bangsa
                 </p>
-            </form>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h3 class="text-3xl font-bold text-[#0053C5] mb-6">Visi YPI Al Azhar</h3>
+                    <div class="bg-[#0053C5]/5 p-8 rounded-xl border-l-4 border-[#0053C5]">
+                        <p class="text-lg text-gray-700 leading-relaxed italic">
+                            "Menjadi lembaga pendidikan Islam terkemuka yang menghasilkan generasi berakhlak mulia,
+                            berprestasi, dan berwawasan global"
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-3xl font-bold text-[#0053C5] mb-6">Misi YPI Al Azhar</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <div
+                                class="w-8 h-8 bg-[#0053C5] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-white font-bold text-sm">1</span>
+                            </div>
+                            <p class="ml-4 text-gray-700">Menyelenggarakan pendidikan berkualitas berbasis nilai-nilai
+                                Islam</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div
+                                class="w-8 h-8 bg-[#0053C5] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-white font-bold text-sm">2</span>
+                            </div>
+                            <p class="ml-4 text-gray-700">Mengembangkan potensi peserta didik secara holistik</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div
+                                class="w-8 h-8 bg-[#0053C5] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-white font-bold text-sm">3</span>
+                            </div>
+                            <p class="ml-4 text-gray-700">Membangun karakter Islami yang kuat dan beradab</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div
+                                class="w-8 h-8 bg-[#0053C5] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-white font-bold text-sm">4</span>
+                            </div>
+                            <p class="ml-4 text-gray-700">Menjalin kerjasama dengan berbagai pihak untuk kemajuan
+                                pendidikan</p>
+                        </li>
+                        <li class="flex items-start">
+                            <div
+                                class="w-8 h-8 bg-[#0053C5] rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <span class="text-white font-bold text-sm">5</span>
+                            </div>
+                            <p class="ml-4 text-gray-700">Memberikan kontribusi nyata bagi masyarakat dan bangsa</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Maksud dan Tujuan -->
+            <div class="bg-gradient-to-br from-[#0053C5] to-[#003D91] rounded-2xl p-12 text-white">
+                <h3 class="text-3xl font-bold mb-8 text-center">Maksud dan Tujuan</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                        <div class="text-4xl mb-3">🤝</div>
+                        <h4 class="font-bold text-lg mb-2">Silaturahmi & Kolaborasi</h4>
+                        <p class="text-white/80 text-sm">Menjadi ajang silaturahmi dan kolaborasi seluruh unit Al Azhar</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                        <div class="text-4xl mb-3">🌐</div>
+                        <h4 class="font-bold text-lg mb-2">Sinergi Eksternal</h4>
+                        <p class="text-white/80 text-sm">Meningkatkan sinergi dengan mitra eksternal, pemerintah, dan
+                            masyarakat</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                        <div class="text-4xl mb-3">🎨</div>
+                        <h4 class="font-bold text-lg mb-2">Pameran Karya</h4>
+                        <p class="text-white/80 text-sm">Memamerkan karya pendidikan, dakwah, dan sosial Al Azhar</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                        <div class="text-4xl mb-3">💡</div>
+                        <h4 class="font-bold text-lg mb-2">Inspirasi Masyarakat</h4>
+                        <p class="text-white/80 text-sm">Memberikan inspirasi melalui gagasan, inovasi, dan kreasi</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                        <div class="text-4xl mb-3">💰</div>
+                        <h4 class="font-bold text-lg mb-2">Program Fundraising</h4>
+                        <p class="text-white/80 text-sm">Menguatkan program fundraising untuk agenda pendidikan dan sosial
+                        </p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border border-white/20">
+                        <div class="text-4xl mb-3">🏆</div>
+                        <h4 class="font-bold text-lg mb-2">Apresiasi & Award</h4>
+                        <p class="text-white/80 text-sm">Memberikan penghargaan kepada kontributor Al Azhar</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <!-- Benefits Info -->
-        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="flex items-center space-x-3 p-4 bg-azhar-blue-50 rounded-lg">
-                <svg class="w-8 h-8 text-azhar-blue flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span class="text-sm font-medium text-gray-700">Proses Cepat<br>Hanya 2 Menit</span>
+    </section>
+
+    <!-- Bentuk Kegiatan Section -->
+    <section id="kegiatan" class="py-20 bg-gray-50">
+        <div class="section-container">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Bentuk Kegiatan</h2>
+                <div class="w-24 h-1 bg-[#0053C5] mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600">4 kategori kegiatan utama yang akan mengisi Al Azhar Expo 2025</p>
             </div>
-            <div class="flex items-center space-x-3 p-4 bg-azhar-blue-50 rounded-lg">
-                <svg class="w-8 h-8 text-azhar-blue flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                </svg>
-                <span class="text-sm font-medium text-gray-700">Data Aman<br>Terenkripsi</span>
-            </div>
-            <div class="flex items-center space-x-3 p-4 bg-azhar-blue-50 rounded-lg">
-                <svg class="w-8 h-8 text-azhar-blue flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                </svg>
-                <span class="text-sm font-medium text-gray-700">Konfirmasi Email<br>Instant</span>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Pameran dan Stand -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all group">
+                    <div class="bg-[#0053C5] p-6">
+                        <div class="flex items-center">
+                            <div
+                                class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mr-4">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Pameran & Stand</h3>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Karya siswa dari berbagai jenjang</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Display lembaga dan unit Al Azhar</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Bazar produk unggulan Al Azhar</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Stand mitra dan sponsor</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Talkshow Nasional -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all group">
+                    <div class="bg-[#0053C5] p-6">
+                        <div class="flex items-center">
+                            <div
+                                class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mr-4">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Talkshow Nasional</h3>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700"><strong>Pendidikan & Adab:</strong> Membentuk generasi
+                                    berakhlak</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700"><strong>Ekonomi Keumatan & Wakaf:</strong> Pemberdayaan
+                                    ekonomi</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700"><strong>Peran Masjid:</strong> Masjid sebagai pusat
+                                    peradaban</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700"><strong>Digital Expo:</strong> Teknologi di era modern</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Lomba dan Festival -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all group">
+                    <div class="bg-[#0053C5] p-6">
+                        <div class="flex items-center">
+                            <div
+                                class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mr-4">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Lomba & Festival</h3>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Lomba Robotik & Coding</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Islamic Fashion Show</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Pentas Seni & Performance</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Rampak Gendang Tradisional</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Kegiatan Khusus -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all group">
+                    <div class="bg-[#0053C5] p-6">
+                        <div class="flex items-center">
+                            <div
+                                class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mr-4">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Kegiatan Khusus</h3>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Pertemuan Jamaah Haji Al Azhar 2018-2025</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Program Literasi "Al Azhar Menulis"</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Fundraising "Gelar Sorban" untuk Palestina</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 text-[#0053C5] mr-3 flex-shrink-0 mt-1" fill="currentColor"
+                                    viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                                <span class="text-gray-700">Penganugerahan Al Azhar Award</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+    <!-- Tambahkan ini di <head> atau sebelum </body> -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+    <!-- Jadwal Section dengan Tabs -->
+    <section id="jadwal" class="py-20 bg-white">
+        <div class="section-container">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Jadwal Acara</h2>
+                <div class="w-24 h-1 bg-[#0053C5] mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600">Program lengkap selama 3 hari event</p>
+            </div>
+
+            <!-- Tabs -->
+            <div x-data="{ activeDay: 1 }" class="max-w-5xl mx-auto">
+                <!-- Tab Headers -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <template
+                        x-for="(tab, index) in [
+                    { id: 1, hari: 'Hari 1', tanggal: 'Kamis, 4 Desember' },
+                    { id: 2, hari: 'Hari 2', tanggal: 'Jumat, 5 Desember' },
+                    { id: 3, hari: 'Hari 3', tanggal: 'Sabtu, 6 Desember' }
+                ]"
+                        :key="index">
+                        <button @click="activeDay = tab.id"
+                            :class="activeDay === tab.id ?
+                                'bg-[#0053C5] text-white' :
+                                'bg-white text-gray-700 hover:bg-gray-50 border-2 border-gray-200'"
+                            class="px-8 py-4 rounded-xl font-bold shadow-lg transition-all transform hover:scale-105">
+                            <div class="text-sm opacity-75 mb-1" x-text="tab.hari"></div>
+                            <div class="text-lg" x-text="tab.tanggal"></div>
+                        </button>
+                    </template>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 border-2 border-gray-100 overflow-hidden">
+
+                    <!-- Hari 1 -->
+                    <div x-show="activeDay === 1" x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 translate-x-4"
+                        x-transition:enter-end="opacity-100 translate-x-0"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 translate-x-0"
+                        x-transition:leave-end="opacity-0 -translate-x-4" class="space-y-6">
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Opening Ceremony</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">08.00 -
+                                    09.00</span>
+                            </div>
+                            <p class="text-gray-600">Pembukaan resmi Al Azhar Expo 2025 oleh Pimpinan YPI Al Azhar</p>
+                        </div>
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Pameran & Bazar (All Day)</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">08.00 -
+                                    17.00</span>
+                            </div>
+                            <p class="text-gray-600">Stand pameran karya, bazar produk, dan display lembaga</p>
+                        </div>
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Talkshow: Pendidikan & Adab</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">10.00 -
+                                    12.00</span>
+                            </div>
+                            <p class="text-gray-600">Diskusi tentang pentingnya pendidikan karakter di era digital</p>
+                        </div>
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Islamic Fashion Show</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">14.00 -
+                                    16.00</span>
+                            </div>
+                            <p class="text-gray-600">Peragaan busana muslim modern karya desainer dan siswa Al Azhar</p>
+                        </div>
+                    </div>
+
+                    <!-- Hari 2 -->
+                    <div x-show="activeDay === 2" x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 translate-x-4"
+                        x-transition:enter-end="opacity-100 translate-x-0"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 translate-x-0"
+                        x-transition:leave-end="opacity-0 -translate-x-4" class="space-y-6">
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Lomba Robotik & Coding</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">08.00 -
+                                    12.00</span>
+                            </div>
+                            <p class="text-gray-600">Kompetisi robotik dan coding untuk siswa berbagai jenjang</p>
+                        </div>
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Talkshow: Ekonomi Keumatan</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">13.00 -
+                                    15.00</span>
+                            </div>
+                            <p class="text-gray-600">Pemberdayaan ekonomi umat melalui wakaf produktif</p>
+                        </div>
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-6 bg-[#0053C5]/5 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-3 gap-2">
+                                <h4 class="text-xl font-bold text-[#0053C5] flex items-center gap-2">
+                                    🌟 Talkshow Special
+                                </h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">15.30 -
+                                    17.30</span>
+                            </div>
+                            <p class="text-gray-700 font-semibold mb-2">
+                                <span class="text-sm text-gray-600">Narasumber:</span><br>
+                                Anies Baswedan & Ustadz Adi Hidayat
+                            </p>
+                            <p class="text-sm text-gray-600 mt-2 italic">
+                                Tema: "Membangun Peradaban di Era Modern"
+                            </p>
+                        </div>
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Fundraising "Gelar Sorban" Palestina</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">19.00 -
+                                    21.00</span>
+                            </div>
+                            <p class="text-gray-600">Acara penggalangan dana untuk saudara kita di Palestina</p>
+                        </div>
+                    </div>
+
+                    <!-- Hari 3 -->
+                    <div x-show="activeDay === 3" x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 translate-x-4"
+                        x-transition:enter-end="opacity-100 translate-x-0"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 translate-x-0"
+                        x-transition:leave-end="opacity-0 -translate-x-4" class="space-y-6">
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Digital Expo & Technology</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">08.00 -
+                                    12.00</span>
+                            </div>
+                            <p class="text-gray-600">Pameran teknologi dan inovasi digital dalam pendidikan</p>
+                        </div>
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Rampak Gendang</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">13.00 -
+                                    14.00</span>
+                            </div>
+                            <p class="text-gray-600">Pertunjukan seni tradisional rampak gendang</p>
+                        </div>
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Pertemuan Jamaah Haji Al Azhar</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">14.00 -
+                                    16.00</span>
+                            </div>
+                            <p class="text-gray-600">Gathering jamaah haji Al Azhar periode 2018-2025</p>
+                        </div>
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Penganugerahan Al Azhar Award</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">16.00 -
+                                    17.00</span>
+                            </div>
+                            <p class="text-gray-600">Penghargaan kepada tokoh dan kontributor Al Azhar</p>
+                        </div>
+
+                        <div class="border-l-4 border-[#0053C5] pl-6 py-4 hover:bg-gray-50 rounded-r-lg transition-all">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2 gap-2">
+                                <h4 class="text-xl font-bold text-gray-800">Closing Ceremony</h4>
+                                <span class="text-[#0053C5] font-semibold text-sm md:text-base whitespace-nowrap">17.00 -
+                                    18.00</span>
+                            </div>
+                            <p class="text-gray-600">Penutupan resmi Al Azhar Expo 2025 & foto bersama</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Statistics Section -->
+    <section class="py-20 bg-gradient-to-br from-[#0053C5] to-[#003D91]">
+        <div class="section-container">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+                <div>
+                    <div class="text-5xl md:text-6xl font-bold mb-2">3</div>
+                    <div class="text-xl opacity-90">Hari Event</div>
+                </div>
+                <div>
+                    <div class="text-5xl md:text-6xl font-bold mb-2">5000+</div>
+                    <div class="text-xl opacity-90">Peserta</div>
+                </div>
+                <div>
+                    <div class="text-5xl md:text-6xl font-bold mb-2">50+</div>
+                    <div class="text-xl opacity-90">Stand Pameran</div>
+                </div>
+                <div>
+                    <div class="text-5xl md:text-6xl font-bold mb-2">20+</div>
+                    <div class="text-xl opacity-90">Pembicara</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="py-20 bg-gray-50">
+        <div class="section-container max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Daftar Sekarang!</h2>
+                <div class="w-24 h-1 bg-[#0053C5] mx-auto mb-6"></div>
+                <p class="text-xl text-gray-600">Bergabunglah dengan ribuan peserta dan dapatkan e-sertifikat digital</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-2xl p-12 border-t-4 border-[#0053C5]">
+                <form id="registrationForm" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">Nama Lengkap *</label>
+                            <input type="text" name="nama_lengkap" required
+                                class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0053C5] focus:border-transparent"
+                                placeholder="Nama lengkap Anda">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">Email *</label>
+                            <input type="email" name="email" required
+                                class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0053C5] focus:border-transparent"
+                                placeholder="email@example.com">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">Nomor HP *</label>
+                            <input type="tel" name="no_hp" required
+                                class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0053C5] focus:border-transparent"
+                                placeholder="08xxxxxxxxxx">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2 text-gray-700">Asal Instansi *</label>
+                            <input type="text" name="asal_instansi" required
+                                class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0053C5] focus:border-transparent"
+                                placeholder="Nama sekolah/instansi">
+                        </div>
+                    </div>
+
+                    <div class="bg-[#0053C5]/5 border-l-4 border-[#0053C5] p-4 rounded-lg">
+                        <p class="text-sm text-gray-700">
+                            ✅ Gratis pendaftaran<br>
+                            ✅ E-sertifikat digital<br>
+                            ✅ Akses ke semua kegiatan<br>
+                            ✅ Doorprize menarik
+                        </p>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-[#0053C5] text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-[#003D91] transform hover:scale-105 transition-all duration-300 shadow-xl">
+                        Daftar Sekarang
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Location -->
+    <section class="py-20 bg-white">
+        <div class="section-container">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-6">Hubungi Kami</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start p-4 bg-gray-50 rounded-lg">
+                            <svg class="w-6 h-6 text-[#0053C5] mr-4 mt-1" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                                </path>
+                            </svg>
+                            <div>
+                                <div class="font-semibold text-gray-800">Telepon</div>
+                                <div class="text-gray-600">+62 21 7244456</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start p-4 bg-gray-50 rounded-lg">
+                            <svg class="w-6 h-6 text-[#0053C5] mr-4 mt-1" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                </path>
+                            </svg>
+                            <div>
+                                <div class="font-semibold text-gray-800">Email</div>
+                                <div class="text-gray-600">info@alazharexpo.com</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start p-4 bg-gray-50 rounded-lg">
+                            <svg class="w-6 h-6 text-[#0053C5] mr-4 mt-1" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <div>
+                                <div class="font-semibold text-gray-800">Alamat</div>
+                                <div class="text-gray-600">Masjid Agung Al Azhar<br>Jl. Sisingamangaraja, Kebayoran
+                                    Baru<br>Jakarta Selatan 12110</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map -->
+                <div>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-6">Lokasi</h3>
+                    <div class="bg-gray-200 h-80 rounded-xl flex items-center justify-center border-2 border-gray-300">
+                        <div class="text-center text-gray-600">
+                            <svg class="w-16 h-16 mx-auto mb-4 text-[#0053C5]" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7">
+                                </path>
+                            </svg>
+                            <p class="font-semibold">Peta Google Maps</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 @endsection
+
+@push('scripts')
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('Pendaftaran berhasil! Silakan cek email Anda untuk QR Code.');
+                    this.reset();
+                } else {
+                    alert('Pendaftaran gagal: ' + (result.message || 'Terjadi kesalahan'));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan saat mendaftar. Silakan coba lagi.');
+            }
+        });
+    </script>
+@endpush

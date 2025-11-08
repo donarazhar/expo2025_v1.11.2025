@@ -68,12 +68,15 @@ class AbsensiController extends Controller
             'qr_code_token' => 'required|exists:peserta,qr_code_token',
             'petugas_scanner' => 'required|string|max:100',
             'waktu_scan' => 'nullable|date',
-            'status_kehadiran' => 'boolean',
+            'status_kehadiran' => 'nullable|boolean',
         ]);
 
         $data = $request->all();
         if (!isset($data['waktu_scan'])) {
             $data['waktu_scan'] = now();
+        }
+        if (!isset($data['status_kehadiran'])) {
+            $data['status_kehadiran'] = true;
         }
 
         Absensi::create($data);
@@ -150,11 +153,17 @@ class AbsensiController extends Controller
         $request->validate([
             'petugas_scanner' => 'required|string|max:100',
             'waktu_scan' => 'required|date',
-            'status_kehadiran' => 'boolean',
+            'status_kehadiran' => 'nullable|boolean',
         ]);
 
         $absensi = Absensi::findOrFail($id);
-        $absensi->update($request->all());
+        
+        $data = $request->all();
+        if (!isset($data['status_kehadiran'])) {
+            $data['status_kehadiran'] = true;
+        }
+        
+        $absensi->update($data);
 
         return redirect()->route('admin.absensi.index')
                        ->with('success', 'Data absensi berhasil diupdate');

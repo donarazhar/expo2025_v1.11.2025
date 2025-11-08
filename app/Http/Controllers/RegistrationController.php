@@ -18,7 +18,7 @@ class RegistrationController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_lengkap' => 'required|string|min:3|max:255',
             'email' => 'required|email|unique:peserta,email|max:255',
-            'no_hp' => 'required|string|regex:/^(\+62|62|0)[0-9]{9,12}$/|max:20',
+            'no_hp' => ['required', 'string', 'regex:/^(\+62|62|0)[0-9]{9,12}$/', 'max:20'],
             'asal_instansi' => 'required|string|min:3|max:255',
         ], [
             'nama_lengkap.required' => 'Nama lengkap wajib diisi',
