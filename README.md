@@ -61,7 +61,7 @@
 
 ```bash
 # Clone & Install
-git clone https://github.com/your-repo/al-azhar-expo.git
+git clone https://github.com/donarazhar/expo2025_v1.11.2025.git
 cd al-azhar-expo
 composer install
 
