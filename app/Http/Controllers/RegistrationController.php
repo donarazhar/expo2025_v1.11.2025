@@ -62,6 +62,11 @@ class RegistrationController extends Controller
                     'nama_lengkap' => $peserta->nama_lengkap,
                     'email' => $peserta->email,
                     'tgl_registrasi' => $peserta->tgl_registrasi->format('d F Y H:i'),
+                ],
+                'instructions' => [
+                    'check_in_url' => url('/check-in'),
+                    'message' => 'Simpan ID Peserta Anda: ' . $peserta->id_peserta,
+                    'instructions' => 'Di hari H, buka ' . url('/check-in') . ' dan masukkan ID Anda untuk mendapatkan QR Code absensi.'
                 ]
             ], 201);
 
@@ -127,5 +132,55 @@ class RegistrationController extends Controller
     {
         // TODO: Implement email sending
         // Mail::to($peserta->email)->send(new RegistrationConfirmation($peserta));
+    }
+    
+    /**
+     * Show check-in form (untuk pengunjung)
+     */
+    public function checkInForm()
+    {
+        return view('check-in');
+    }
+    
+    /**
+     * Verify ID and show QR Code
+     */
+    public function verifyId(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id_peserta' => 'required|string|size:4'
+        ], [
+            'id_peserta.required' => 'ID Peserta wajib diisi',
+            'id_peserta.size' => 'ID Peserta harus 4 karakter'
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ], 422);
+        }
+        
+        // Cari peserta berdasarkan ID
+        $peserta = Peserta::where('id_peserta', strtoupper($request->id_peserta))->first();
+        
+        if (!$peserta) {
+            return response()->json([
+                'success' => false,
+                'message' => 'ID Peserta tidak ditemukan. Pastikan ID sudah benar.'
+            ], 404);
+        }
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'ID Valid! Silakan scan QR Code di bawah ini.',
+            'data' => [
+                'id_peserta' => $peserta->id_peserta,
+                'nama_lengkap' => $peserta->nama_lengkap,
+                'asal_instansi' => $peserta->asal_instansi,
+                'qr_code_token' => $peserta->qr_code_token,
+                'email' => $peserta->email
+            ]
+        ], 200);
     }
 }

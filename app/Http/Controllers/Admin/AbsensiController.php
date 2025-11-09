@@ -250,4 +250,81 @@ class AbsensiController extends Controller
 
         return response()->json($stats);
     }
+    
+    /**
+     * Show QR Scanner Page (untuk tablet absensi)
+     */
+    public function scanPage()
+    {
+        return view('admin.absensi.scan');
+    }
+    
+    /**
+     * Process Absensi dari QR Code atau Manual Input
+     */
+    public function processAbsensi(Request $request)
+    {
+        $validator = \Validator::make($request->all(), [
+            'qr_code_token' => 'required|string'
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'QR Code token tidak valid'
+            ], 422);
+        }
+        
+        // Cari peserta berdasarkan QR Code token
+        $peserta = Peserta::where('qr_code_token', $request->qr_code_token)->first();
+        
+        if (!$peserta) {
+            return response()->json([
+                'success' => false,
+                'message' => 'QR Code tidak ditemukan. Pastikan sudah terdaftar.'
+            ], 404);
+        }
+        
+        // Check apakah sudah absen hari ini
+        $sudahAbsen = Absensi::where('qr_code_token', $request->qr_code_token)
+                             ->whereDate('waktu_scan', today())
+                             ->exists();
+        
+        if ($sudahAbsen) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sudah melakukan absensi hari ini!',
+                'already_checked_in' => true,
+                'peserta' => [
+                    'nama_lengkap' => $peserta->nama_lengkap,
+                    'id_peserta' => $peserta->id_peserta,
+                    'asal_instansi' => $peserta->asal_instansi
+                ]
+            ], 200);
+        }
+        
+        // Create absensi record
+        $absensi = Absensi::create([
+            'qr_code_token' => $peserta->qr_code_token,
+            'waktu_scan' => now(),
+            'petugas_scanner' => $request->get('petugas', 'Kiosk Self-Service'),
+            'status_kehadiran' => true,
+            'keterangan' => 'Check-in via ' . ($request->get('source', 'QR Scanner'))
+        ]);
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Absensi Berhasil! Selamat Datang.',
+            'peserta' => [
+                'nama_lengkap' => $peserta->nama_lengkap,
+                'id_peserta' => $peserta->id_peserta,
+                'asal_instansi' => $peserta->asal_instansi,
+                'email' => $peserta->email
+            ],
+            'absensi' => [
+                'waktu_scan' => $absensi->waktu_scan->format('d F Y, H:i:s'),
+                'id' => $absensi->id
+            ]
+        ], 201);
+    }
 }

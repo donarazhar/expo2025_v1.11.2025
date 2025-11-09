@@ -67,6 +67,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             
             // Statistics
             Route::get('/statistics', [AbsensiController::class, 'statistics'])->name('statistics');
+            
         });
 
         // Sertifikat Management

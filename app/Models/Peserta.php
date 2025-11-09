@@ -38,10 +38,12 @@ class Peserta extends Model
         parent::boot();
 
         static::creating(function ($peserta) {
+            // Generate ID Peserta 4 karakter alfanumerik (A7K2)
             if (empty($peserta->id_peserta)) {
-                $peserta->id_peserta = 'AZE-' . date('Ymd') . '-' . strtoupper(Str::random(6));
+                $peserta->id_peserta = self::generateUniqueId();
             }
             
+            // QR Code Token tetap sama untuk scan
             if (empty($peserta->qr_code_token)) {
                 $peserta->qr_code_token = Str::uuid()->toString();
             }
@@ -50,6 +52,35 @@ class Peserta extends Model
                 $peserta->tgl_registrasi = now();
             }
         });
+    }
+    
+    /**
+     * Generate unique 4-character alphanumeric ID
+     * Format: A7K2 (huruf + angka + huruf + angka)
+     * Capacity: 36^4 = 1,679,616 kombinasi (lebih dari cukup untuk 1000 pengunjung)
+     */
+    private static function generateUniqueId()
+    {
+        $maxAttempts = 10;
+        $attempt = 0;
+        
+        do {
+            // Generate 4 karakter acak (huruf besar + angka)
+            $id = strtoupper(Str::random(4));
+            
+            // Pastikan ada kombinasi huruf dan angka (tidak semua huruf atau semua angka)
+            if (preg_match('/^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]{4}$/', $id)) {
+                // Check uniqueness
+                if (!self::where('id_peserta', $id)->exists()) {
+                    return $id;
+                }
+            }
+            
+            $attempt++;
+        } while ($attempt < $maxAttempts);
+        
+        // Fallback: timestamp-based jika gagal generate unique
+        return strtoupper(substr(md5(microtime()), 0, 4));
     }
 
     /**

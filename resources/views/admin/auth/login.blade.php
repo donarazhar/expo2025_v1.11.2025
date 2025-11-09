@@ -14,7 +14,7 @@
         <!-- Logo & Title -->
         <div class="text-center mb-8">
             <div class="inline-flex items-center justify-center w-20 h-20 bg-white rounded-2xl shadow-xl mb-4">
-                <span class="text-azhar-blue-500 font-bold text-3xl">AZ</span>
+                <img src="{{ asset('assets/img/logohitam.png') }}" alt="Logo" class="h-10 w-auto object-contain">
             </div>
             <h1 class="text-3xl font-bold text-white mb-2">Admin Panel</h1>
             <p class="text-azhar-blue-100">Al Azhar Expo 2025</p>

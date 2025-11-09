@@ -31,8 +31,5 @@ class AdminUserSeeder extends Seeder
             'is_active' => true,
         ]);
 
-        $this->command->info('✅ Admin users created successfully!');
-        $this->command->info('📧 Email: admin@alazharexpo.com | Password: password');
-        $this->command->info('📧 Email: user@alazharexpo.com | Password: password');
     }
 }
