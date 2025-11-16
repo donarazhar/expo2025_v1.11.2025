@@ -2,20 +2,27 @@
 
 use App\Http\Controllers\Admin\AbsensiController;
 use App\Http\Controllers\LandingController;
+use App\Http\Controllers\Portal\FeedbackController;
 use App\Http\Controllers\RegistrationController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
 
 // Landing Page
 Route::get('/', [LandingController::class, 'index'])->name('home');
 
-// Registration
-// Registration
+// DEBUG ROUTE - Remove this after testing
+Route::post('/test-register', function (Request $request) {
+    \Log::info('Test Register Hit!', $request->all());
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Test route works!',
+        'data' => $request->all(),
+    ]);
+});
+
+// Registration Routes
 Route::post('/register', [RegistrationController::class, 'store'])->name('register.store');
 Route::get('/register/success/{id_peserta}', [RegistrationController::class, 'success'])->name('register.success');
 
@@ -25,46 +32,39 @@ Route::post('/check-email', [RegistrationController::class, 'checkEmail'])->name
 // QR Code
 Route::get('/qr/download/{id_peserta}', [RegistrationController::class, 'downloadQr'])->name('qr.download');
 
-// Check-in
-Route::get('/check-in', [RegistrationController::class, 'checkInForm'])->name('check-in.form');
-Route::post('/check-in/verify', [RegistrationController::class, 'verifyId'])->name('check-in.verify');
-
-// Include Admin Routes
-require __DIR__.'/admin.php';
-
-// Check-in Routes untuk Pengunjung
-// Route::get('/check-in', [RegistrationController::class, 'checkInForm'])->name('check-in.form');
+// Check-in Routes
 Route::get('/check-in', function () {
     return view('checkin-simple');
 })->name('check-in.form');
-
 Route::post('/check-in/verify', [RegistrationController::class, 'verifyId'])->name('check-in.verify');
 
-// Absensi Scan Routes untuk Tablet (Public - No Auth Required)
+// Absensi Scan Routes
 Route::get('/scan', [AbsensiController::class, 'scanPage'])->name('scan.page');
 Route::post('/scan/process', [AbsensiController::class, 'processAbsensi'])->name('scan.process');
 
-// Portal Jamaah Routes
+// Portal Routes
 Route::prefix('portal')->name('portal.')->group(function () {
-
-    // Portal Homepage
     Route::get('/', [App\Http\Controllers\PortalController::class, 'index'])->name('index');
-
-    // Events
     Route::get('/events', [App\Http\Controllers\PortalController::class, 'events'])->name('events');
     Route::get('/events/{slug}', [App\Http\Controllers\PortalController::class, 'eventDetail'])->name('event.detail');
     Route::post('/events/{id}/register', [App\Http\Controllers\PortalController::class, 'registerEvent'])->name('event.register');
-
-    // Live Streaming
     Route::get('/live', [App\Http\Controllers\PortalController::class, 'liveStreaming'])->name('live');
-
-    // Gallery
     Route::get('/gallery', [App\Http\Controllers\PortalController::class, 'gallery'])->name('gallery');
+    // Feedback routes
+    Route::get('/feedback', [FeedbackController::class, 'index'])
+        ->name('feedback');
 
-    // Feedback
-    Route::get('/feedback', [App\Http\Controllers\PortalController::class, 'feedbackForm'])->name('feedback');
-    Route::post('/feedback', [App\Http\Controllers\PortalController::class, 'submitFeedback'])->name('feedback.submit');
+    Route::post('/feedback/submit', [FeedbackController::class, 'submit'])
+        ->name('feedback.submit');
 
-    // FAQ
+    Route::get('/feedback/published', [FeedbackController::class, 'getPublished'])
+        ->name('feedback.published');
+
+    Route::get('/feedback/featured', [FeedbackController::class, 'getFeatured'])
+        ->name('feedback.featured');
+
     Route::get('/faq', [App\Http\Controllers\PortalController::class, 'faq'])->name('faq');
 });
+
+// Include Admin Routes
+require __DIR__.'/admin.php';

@@ -19,12 +19,12 @@ class SertifikatController extends Controller
         // Search by peserta name or certificate number
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('nomor_sertifikat', 'like', "%{$search}%")
-                  ->orWhereHas('peserta', function($q2) use ($search) {
-                      $q2->where('nama_lengkap', 'like', "%{$search}%")
-                         ->orWhere('id_peserta', 'like', "%{$search}%");
-                  });
+                    ->orWhereHas('peserta', function ($q2) use ($search) {
+                        $q2->where('nama_lengkap', 'like', "%{$search}%")
+                            ->orWhere('id_peserta', 'like', "%{$search}%");
+                    });
             });
         }
 
@@ -54,8 +54,8 @@ class SertifikatController extends Controller
     public function create()
     {
         // Get peserta yang belum punya sertifikat
-        $peserta = Peserta::doesntHave('sertifikat')->get();
-        
+        $peserta = Peserta::doesntHave('eSertifikat')->get();
+
         return view('admin.sertifikat.create', compact('peserta'));
     }
 
@@ -73,14 +73,14 @@ class SertifikatController extends Controller
         ]);
 
         $data = $request->all();
-        if (!isset($data['tgl_penerbitan'])) {
+        if (! isset($data['tgl_penerbitan'])) {
             $data['tgl_penerbitan'] = now();
         }
 
         $sertifikat = ESertifikat::create($data);
 
         return redirect()->route('admin.sertifikat.index')
-                       ->with('success', 'Sertifikat berhasil diterbitkan! Nomor: ' . $sertifikat->nomor_sertifikat);
+            ->with('success', 'Sertifikat berhasil diterbitkan! Nomor: '.$sertifikat->nomor_sertifikat);
     }
 
     /**
@@ -89,7 +89,7 @@ class SertifikatController extends Controller
     public function show($id_sertifikat)
     {
         $sertifikat = ESertifikat::with('peserta')->findOrFail($id_sertifikat);
-        
+
         return view('admin.sertifikat.show', compact('sertifikat'));
     }
 
@@ -99,7 +99,7 @@ class SertifikatController extends Controller
     public function edit($id)
     {
         $sertifikat = ESertifikat::with('peserta')->findOrFail($id);
-        
+
         return view('admin.sertifikat.edit', compact('sertifikat'));
     }
 
@@ -117,7 +117,7 @@ class SertifikatController extends Controller
         $sertifikat->update($request->all());
 
         return redirect()->route('admin.sertifikat.index')
-                       ->with('success', 'Data sertifikat berhasil diupdate');
+            ->with('success', 'Data sertifikat berhasil diupdate');
     }
 
     /**
@@ -129,30 +129,56 @@ class SertifikatController extends Controller
         $sertifikat->delete();
 
         return redirect()->route('admin.sertifikat.index')
-                       ->with('success', 'Sertifikat berhasil dihapus');
+            ->with('success', 'Sertifikat berhasil dihapus');
     }
 
-    /**
-     * Bulk generate sertifikat untuk peserta yang sudah absen
-     */
     public function bulkGenerate(Request $request)
     {
         // Get peserta yang sudah absen tapi belum punya sertifikat
         $peserta = Peserta::has('absensi')
-                         ->doesntHave('sertifikat')
-                         ->get();
+            ->doesntHave('eSertifikat')
+            ->get();
 
-        $count = 0;
-        foreach ($peserta as $p) {
-            ESertifikat::create([
-                'qr_code_token' => $p->qr_code_token,
-                'tgl_penerbitan' => now(),
-            ]);
-            $count++;
+        if ($peserta->isEmpty()) {
+            return redirect()->route('admin.sertifikat.index')
+                ->with('info', 'Tidak ada peserta yang memenuhi syarat untuk generate sertifikat');
         }
 
-        return redirect()->route('admin.sertifikat.index')
-                       ->with('success', $count . ' sertifikat berhasil digenerate');
+        $count = 0;
+        $errors = [];
+
+        foreach ($peserta as $p) {
+            try {
+                // Buat sertifikat tanpa generate QR Code
+                // QR Code akan di-generate on-the-fly saat download PDF
+                ESertifikat::create([
+                    'qr_code_token' => $p->qr_code_token,
+                    'tgl_penerbitan' => now(),
+                    'status_kirim' => false,
+                ]);
+
+                $count++;
+            } catch (\Exception $e) {
+                \Log::error("Failed to generate certificate for {$p->nama_lengkap}", [
+                    'error' => $e->getMessage(),
+                    'peserta_id' => $p->id_peserta,
+                ]);
+                $errors[] = $p->nama_lengkap;
+            }
+        }
+
+        if ($count > 0) {
+            $message = $count.' sertifikat berhasil digenerate';
+            if (! empty($errors)) {
+                $message .= '. Gagal: '.implode(', ', $errors);
+            }
+
+            return redirect()->route('admin.sertifikat.index')
+                ->with('success', $message);
+        } else {
+            return redirect()->route('admin.sertifikat.index')
+                ->with('error', 'Gagal generate sertifikat untuk semua peserta');
+        }
     }
 
     /**
@@ -177,13 +203,13 @@ class SertifikatController extends Controller
         ]);
 
         ESertifikat::whereIn('id_sertifikat', $request->ids)
-                  ->update(['status_kirim' => true]);
+            ->update(['status_kirim' => true]);
 
         // TODO: Send actual emails here
 
         return response()->json([
             'success' => true,
-            'message' => count($request->ids) . ' sertifikat berhasil dikirim',
+            'message' => count($request->ids).' sertifikat berhasil dikirim',
         ]);
     }
 
@@ -202,15 +228,15 @@ class SertifikatController extends Controller
         $sertifikat = $query->orderBy('tgl_penerbitan', 'desc')->get();
 
         // Generate CSV
-        $filename = 'sertifikat_' . date('Y-m-d_His') . '.csv';
+        $filename = 'sertifikat_'.date('Y-m-d_His').'.csv';
         $headers = [
             'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            'Content-Disposition' => 'attachment; filename="'.$filename.'"',
         ];
 
-        $callback = function() use ($sertifikat) {
+        $callback = function () use ($sertifikat) {
             $file = fopen('php://output', 'w');
-            
+
             // Header
             fputcsv($file, ['Nomor Sertifikat', 'Nama Peserta', 'Email', 'Tanggal Penerbitan', 'Status Kirim']);
 
@@ -231,18 +257,28 @@ class SertifikatController extends Controller
         return response()->stream($callback, 200, $headers);
     }
 
-    /**
-     * Download sertifikat PDF
-     */
     public function downloadPdf($id_sertifikat)
     {
         $sertifikat = ESertifikat::with('peserta')->findOrFail($id_sertifikat);
-        
-        // Generate PDF view
+
+        // Generate HTML view
         $html = view('admin.sertifikat.pdf', compact('sertifikat'))->render();
 
         return response($html)
-               ->header('Content-Type', 'text/html')
-               ->header('Content-Disposition', 'inline; filename="sertifikat_' . $sertifikat->nomor_sertifikat . '.html"');
+            ->header('Content-Type', 'text/html; charset=utf-8')
+            ->header('Content-Disposition', 'inline; filename="sertifikat_'.$sertifikat->nomor_sertifikat.'.html"');
+    }
+
+    public function verify($nomor_sertifikat)
+    {
+        $sertifikat = ESertifikat::with('peserta')
+            ->where('nomor_sertifikat', $nomor_sertifikat)
+            ->first();
+
+        if (! $sertifikat) {
+            abort(404, 'Sertifikat tidak ditemukan');
+        }
+
+        return view('public.sertifikat.verify', compact('sertifikat'));
     }
 }

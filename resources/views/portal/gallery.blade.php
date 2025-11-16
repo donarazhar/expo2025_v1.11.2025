@@ -387,46 +387,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-2xl font-black mb-4">AL AZHAR EXPO 2025</h3>
-                    <p class="text-gray-400">Al Azhar Inspirasi Bangsa</p>
-                </div>
-
-                <div>
-                    <h4 class="font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="{{ route('portal.events') }}" class="hover:text-white transition">Events</a>
-                        </li>
-                        <li><a href="{{ route('portal.live') }}" class="hover:text-white transition">Live
-                                Streaming</a></li>
-                        <li><a href="{{ route('portal.gallery') }}" class="hover:text-white transition">Gallery</a>
-                        </li>
-                        <li><a href="{{ route('portal.faq') }}" class="hover:text-white transition">FAQ</a></li>
-                        <li><a href="{{ route('portal.feedback') }}" class="hover:text-white transition">Feedback</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-bold mb-4">Kontak</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li>📍 Masjid Agung Al Azhar Jakarta</li>
-                        <li>📧 info@alazharexpo.com</li>
-                        <li>📱 +62 821 xxxx xxxx</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-                <p>© 2025 YPI Al Azhar. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
     <script>
         function galleryViewer() {
             return {

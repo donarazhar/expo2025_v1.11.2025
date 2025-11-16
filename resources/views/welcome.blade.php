@@ -590,8 +590,9 @@
                 <p class="text-gray-600 text-lg">Isi formulir untuk mendaftar sebagai peserta Al Azhar Expo 2025</p>
             </div>
 
-            <div x-show="success" x-cloak
-                class="mb-8 bg-gradient-to-r from-green-500 to-green-600 text-white p-8 rounded-3xl shadow-2xl">
+            <!-- Success Message -->
+            <div x-show="success" x-cloak x-transition
+                class="mb-8 bg-gradient-to-r from-[#0053C5] to-[#003D91] text-white p-8 rounded-3xl shadow-2xl">
                 <div class="flex items-start gap-4">
                     <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -608,43 +609,88 @@
                             <p class="text-sm opacity-90">⚠️ Simpan ID ini baik-baik!</p>
                         </div>
 
-                        <div class="space-y-2 text-sm">
+                        <div class="space-y-2 text-sm bg-white/10 rounded-xl p-4">
                             <p class="font-bold text-lg mb-2">📋 Cara Check-in di Hari H:</p>
                             <ol class="list-decimal list-inside space-y-2 ml-2">
                                 <li><strong>Buka:</strong> <a href="{{ route('check-in.form') }}"
-                                        class="underline hover:text-white/80">{{ route('check-in.form') }}</a></li>
+                                        class="underline hover:text-white/80">{{ url('/check-in') }}</a></li>
                                 <li><strong>Masukkan</strong> ID Peserta Anda</li>
                                 <li><strong>QR Code</strong> akan muncul otomatis</li>
                                 <li><strong>Scan</strong> QR di tablet entrance</li>
                             </ol>
                         </div>
+
+                        <button x-on:click="success = false; resetForm()"
+                            class="mt-4 bg-white text-[#0053C5] px-6 py-2 rounded-full font-bold hover:bg-white/90 transition">
+                            Daftar Lagi
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <form x-on:submit.prevent="submitForm" class="gradient-border p-10 reveal">
-                <div class="space-y-6 relative z-10">
-                    @foreach (['nama_lengkap' => 'Nama Lengkap', 'email' => 'Email', 'no_hp' => 'No. HP/WhatsApp', 'asal_instansi' => 'Asal Instansi/Sekolah'] as $field => $label)
+            <!-- Registration Form -->
+            <div x-show="!success" x-transition>
+                <form x-on:submit.prevent="submitForm" class="gradient-border p-10 reveal">
+                    <div class="space-y-6 relative z-10">
+                        <!-- Nama Lengkap -->
                         <div>
-                            <label class="block text-sm font-bold text-gray-900 mb-3">{{ $label }} *</label>
-                            <input type="{{ $field === 'email' ? 'email' : ($field === 'no_hp' ? 'tel' : 'text') }}"
-                                x-model="formData.{{ $field }}"
+                            <label class="block text-sm font-bold text-gray-900 mb-3">Nama Lengkap *</label>
+                            <input type="text" x-model="formData.nama_lengkap"
                                 class="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
-                                placeholder="{{ $field === 'email' ? 'contoh@email.com' : ($field === 'no_hp' ? '081234567890' : 'Masukkan ' . strtolower($label)) }}">
-                            <p x-show="errors.{{ $field }}" x-text="errors.{{ $field }}"
+                                placeholder="Masukkan nama lengkap">
+                            <p x-show="errors.nama_lengkap" x-text="errors.nama_lengkap"
                                 class="text-red-500 text-sm mt-2 font-semibold"></p>
                         </div>
-                    @endforeach
-                </div>
 
-                <div class="mt-10 relative z-10">
-                    <button type="submit" x-bind:disabled="loading"
-                        class="w-full text-white px-8 py-5 rounded-2xl font-bold text-lg transition-all transform shadow-xl bg-gradient-to-r from-[#0053C5] to-[#003D91] hover:shadow-2xl hover:scale-105 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none">
-                        <span x-show="!loading">Daftar Sekarang →</span>
-                        <span x-show="loading">Memproses...</span>
-                    </button>
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-3">Email *</label>
+                            <input type="email" x-model="formData.email"
+                                class="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
+                                placeholder="contoh@email.com">
+                            <p x-show="errors.email" x-text="errors.email"
+                                class="text-red-500 text-sm mt-2 font-semibold"></p>
+                        </div>
+
+                        <!-- No HP -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-3">No. HP/WhatsApp *</label>
+                            <input type="tel" x-model="formData.no_hp"
+                                class="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
+                                placeholder="081234567890">
+                            <p x-show="errors.no_hp" x-text="errors.no_hp"
+                                class="text-red-500 text-sm mt-2 font-semibold"></p>
+                        </div>
+
+                        <!-- Asal Instansi -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-900 mb-3">Asal Instansi/Sekolah *</label>
+                            <input type="text" x-model="formData.asal_instansi"
+                                class="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
+                                placeholder="Masukkan asal instansi/sekolah">
+                            <p x-show="errors.asal_instansi" x-text="errors.asal_instansi"
+                                class="text-red-500 text-sm mt-2 font-semibold"></p>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="mt-10 relative z-10">
+                        <button type="submit" x-bind:disabled="loading"
+                            class="w-full text-white px-8 py-5 rounded-2xl font-bold text-lg transition-all transform shadow-xl bg-gradient-to-r from-[#0053C5] to-[#003D91] hover:shadow-2xl hover:scale-105 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none">
+                            <span x-show="!loading">Daftar Sekarang →</span>
+                            <span x-show="loading">Memproses...</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Help Text -->
+                <div class="mt-8 text-center">
+                    <p class="text-gray-600 text-sm">
+                        Dengan mendaftar, Anda menyetujui <a href="#"
+                            class="text-[#0053C5] hover:underline">Syarat & Ketentuan</a>
+                    </p>
                 </div>
-            </form>
+            </div>
         </div>
     </section>
 
@@ -694,66 +740,144 @@
 
                 validateForm() {
                     this.errors = {};
+                    let isValid = true;
 
+                    // Nama Lengkap
                     if (!this.formData.nama_lengkap || this.formData.nama_lengkap.trim().length < 3) {
                         this.errors.nama_lengkap = 'Nama lengkap minimal 3 karakter';
+                        isValid = false;
                     }
 
+                    // Email
                     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                     if (!this.formData.email || !emailRegex.test(this.formData.email)) {
-                        this.errors.email = 'Email tidak valid';
+                        this.errors.email = 'Format email tidak valid';
+                        isValid = false;
                     }
 
+                    // No HP
                     const phoneRegex = /^(\+62|62|0)[0-9]{9,12}$/;
-                    if (!this.formData.no_hp || !phoneRegex.test(this.formData.no_hp.replace(/[\s-]/g,
-                            ''))) {
-                        this.errors.no_hp = 'Nomor HP tidak valid';
+                    const cleanPhone = this.formData.no_hp.replace(/[\s-]/g, '');
+                    if (!cleanPhone || !phoneRegex.test(cleanPhone)) {
+                        this.errors.no_hp = 'Format nomor HP tidak valid (contoh: 081234567890)';
+                        isValid = false;
                     }
 
+                    // Asal Instansi
                     if (!this.formData.asal_instansi || this.formData.asal_instansi.trim().length < 3) {
                         this.errors.asal_instansi = 'Asal instansi minimal 3 karakter';
+                        isValid = false;
                     }
 
-                    return Object.keys(this.errors).length === 0;
+                    return isValid;
                 },
 
                 async submitForm() {
-                    if (!this.validateForm()) return;
+                    console.log('=== FORM SUBMISSION STARTED ===');
+
+                    // Validate first
+                    if (!this.validateForm()) {
+                        console.error('❌ Validation failed:', this.errors);
+                        return;
+                    }
+
+                    console.log('✅ Validation passed');
+                    console.log('📝 Form Data:', this.formData);
 
                     this.loading = true;
+                    this.errors = {};
+
+                    // Check CSRF Token
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]');
+                    if (!csrfToken) {
+                        console.error('❌ CSRF token not found in page');
+                        alert('Error: CSRF token tidak ditemukan. Refresh halaman dan coba lagi.');
+                        this.loading = false;
+                        return;
+                    }
+                    console.log('🔑 CSRF Token:', csrfToken.content);
+
+                    // Check Route
+                    const registerUrl = '{{ route('register.store') }}';
+                    console.log('🌐 Register URL:', registerUrl);
 
                     try {
-                        const response = await fetch('{{ route('register.store') }}', {
+                        console.log('📡 Sending request...');
+
+                        const response = await fetch(registerUrl, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector(
-                                    'meta[name="csrf-token"]').content
+                                'Accept': 'application/json',
+                                'X-CSRF-TOKEN': csrfToken.content,
+                                'X-Requested-With': 'XMLHttpRequest'
                             },
                             body: JSON.stringify(this.formData)
                         });
 
-                        const data = await response.json();
+                        console.log('📨 Response Status:', response.status);
+                        console.log('📨 Response OK:', response.ok);
 
-                        if (response.ok) {
+                        // Try to get response text first
+                        const responseText = await response.text();
+                        console.log('📄 Response Text:', responseText);
+
+                        // Try to parse as JSON
+                        let data;
+                        try {
+                            data = JSON.parse(responseText);
+                            console.log('✅ Parsed JSON:', data);
+                        } catch (parseError) {
+                            console.error('❌ JSON Parse Error:', parseError);
+                            console.error('Raw response:', responseText);
+                            alert('Error: Server mengembalikan response yang tidak valid.\n\nResponse: ' +
+                                responseText.substring(0, 200));
+                            this.loading = false;
+                            return;
+                        }
+
+                        if (response.ok && data.success) {
+                            // Success
+                            console.log('🎉 Registration successful!');
+                            console.log('🆔 ID Peserta:', data.id_peserta);
+
                             this.success = true;
                             this.registrationId = data.id_peserta;
                             this.resetForm();
+
+                            // Scroll to success message
                             setTimeout(() => {
                                 document.querySelector('#registrasi').scrollIntoView({
                                     behavior: 'smooth',
-                                    block: 'center'
+                                    block: 'start'
                                 });
                             }, 100);
                         } else {
-                            this.errors = data.errors || {};
-                            alert(data.message || 'Terjadi kesalahan');
+                            // Server validation errors
+                            console.error('❌ Server Error:', data);
+
+                            if (data.errors) {
+                                console.error('Validation Errors:', data.errors);
+                                this.errors = data.errors;
+                            } else {
+                                alert(data.message || 'Terjadi kesalahan saat pendaftaran');
+                            }
                         }
                     } catch (error) {
-                        console.error(error);
-                        alert('Terjadi kesalahan koneksi');
+                        console.error('❌ NETWORK ERROR:', error);
+                        console.error('Error name:', error.name);
+                        console.error('Error message:', error.message);
+                        console.error('Error stack:', error.stack);
+
+                        alert('Terjadi kesalahan koneksi:\n\n' +
+                            'Error: ' + error.message + '\n\n' +
+                            'Periksa:\n' +
+                            '1. Koneksi internet Anda\n' +
+                            '2. Browser console (F12) untuk detail error\n' +
+                            '3. Laravel server masih running (php artisan serve)');
                     } finally {
                         this.loading = false;
+                        console.log('=== FORM SUBMISSION ENDED ===');
                     }
                 },
 
@@ -769,17 +893,32 @@
             }));
         });
 
+        // Navbar scroll effect
         window.addEventListener('scroll', () => {
-            document.getElementById('navbar').classList.toggle('navbar-scrolled', window.scrollY > 50);
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                navbar.classList.toggle('navbar-scrolled', window.scrollY > 50);
+            }
         });
 
+        // Scroll reveal animation
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('active'));
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
         }, {
             threshold: 0.1
         });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Debug info on page load
+        console.log('=== PAGE LOADED ===');
+        console.log('🌐 Current URL:', window.location.href);
+        console.log('🔑 CSRF Token:', document.querySelector('meta[name="csrf-token"]')?.content || 'NOT FOUND');
+        console.log('📍 Register Route:', '{{ route('register.store') }}');
     </script>
 </body>
 

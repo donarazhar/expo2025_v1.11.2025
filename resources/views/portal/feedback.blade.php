@@ -377,46 +377,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-2xl font-black mb-4">AL AZHAR EXPO 2025</h3>
-                    <p class="text-gray-400">Al Azhar Inspirasi Bangsa</p>
-                </div>
-
-                <div>
-                    <h4 class="font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="{{ route('portal.events') }}" class="hover:text-white transition">Events</a>
-                        </li>
-                        <li><a href="{{ route('portal.live') }}" class="hover:text-white transition">Live
-                                Streaming</a></li>
-                        <li><a href="{{ route('portal.gallery') }}" class="hover:text-white transition">Gallery</a>
-                        </li>
-                        <li><a href="{{ route('portal.faq') }}" class="hover:text-white transition">FAQ</a></li>
-                        <li><a href="{{ route('portal.feedback') }}" class="hover:text-white transition">Feedback</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-bold mb-4">Kontak</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li>📍 Masjid Agung Al Azhar Jakarta</li>
-                        <li>📧 info@alazharexpo.com</li>
-                        <li>📱 +62 821 xxxx xxxx</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-                <p>© 2025 YPI Al Azhar. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
     <script>
         function feedbackForm() {
             return {
@@ -434,55 +394,117 @@
                 validateForm() {
                     this.errors = {};
 
-                    if (!this.formData.id_peserta || this.formData.id_peserta.length !== 4) {
+                    // Validate ID Peserta
+                    if (!this.formData.id_peserta) {
+                        this.errors.id_peserta = 'ID Peserta wajib diisi';
+                    } else if (this.formData.id_peserta.length !== 4) {
                         this.errors.id_peserta = 'ID Peserta harus 4 karakter';
                     }
 
+                    // Validate Rating
                     if (!this.formData.rating || this.formData.rating < 1 || this.formData.rating > 5) {
-                        this.errors.rating = 'Pilih rating 1-5';
+                        this.errors.rating = 'Pilih rating 1-5 bintang';
                     }
 
-                    if (!this.formData.komentar || this.formData.komentar.trim().length < 10) {
-                        this.errors.komentar = 'Komentar minimal 10 karakter';
+                    // Validate Komentar
+                    const komentarLength = this.formData.komentar.trim().length;
+                    if (!this.formData.komentar.trim()) {
+                        this.errors.komentar = 'Komentar wajib diisi';
+                    } else if (komentarLength < 10) {
+                        this.errors.komentar = `Komentar minimal 10 karakter (saat ini: ${komentarLength})`;
+                    } else if (komentarLength > 1000) {
+                        this.errors.komentar = `Komentar maksimal 1000 karakter (saat ini: ${komentarLength})`;
                     }
 
                     return Object.keys(this.errors).length === 0;
                 },
 
                 async submitFeedback() {
+                    // Reset errors
+                    this.errors = {};
+
+                    // Validate form
                     if (!this.validateForm()) {
+                        // Scroll to first error
+                        const firstErrorElement = document.querySelector('.text-red-500');
+                        if (firstErrorElement) {
+                            firstErrorElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                        }
                         return;
                     }
 
                     this.loading = true;
 
                     try {
-                        const response = await fetch('{{ route('portal.feedback.submit') }}', {
+                        const response = await fetch('/portal/feedback/submit', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                                'Accept': 'application/json'
                             },
-                            body: JSON.stringify(this.formData)
+                            body: JSON.stringify({
+                                id_peserta: this.formData.id_peserta.toUpperCase(),
+                                event_id: this.formData.event_id || null,
+                                rating: this.formData.rating,
+                                komentar: this.formData.komentar.trim()
+                            })
                         });
 
                         const data = await response.json();
 
-                        if (data.success) {
+                        if (response.ok && data.success) {
+                            // Success
                             this.success = true;
+                            this.errors = {};
+
+                            // Scroll to success message
                             window.scrollTo({
                                 top: 0,
                                 behavior: 'smooth'
                             });
-                        } else {
-                            this.errors = data.errors || {};
-                            if (data.message) {
-                                alert(data.message);
+
+                            // Optional: Track analytics
+                            if (typeof gtag !== 'undefined') {
+                                gtag('event', 'feedback_submitted', {
+                                    'rating': this.formData.rating,
+                                    'has_event': !!this.formData.event_id
+                                });
                             }
+                        } else {
+                            // Error from server
+                            if (data.errors) {
+                                // Validation errors
+                                this.errors = {};
+                                Object.keys(data.errors).forEach(key => {
+                                    this.errors[key] = Array.isArray(data.errors[key]) ?
+                                        data.errors[key][0] :
+                                        data.errors[key];
+                                });
+                            } else if (data.message) {
+                                // General error message
+                                alert(data.message);
+                            } else {
+                                alert('Terjadi kesalahan. Silakan coba lagi.');
+                            }
+
+                            // Scroll to first error
+                            setTimeout(() => {
+                                const firstErrorElement = document.querySelector('.text-red-500');
+                                if (firstErrorElement) {
+                                    firstErrorElement.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'center'
+                                    });
+                                }
+                            }, 100);
                         }
                     } catch (error) {
-                        console.error(error);
-                        alert('Terjadi kesalahan. Silakan coba lagi.');
+                        console.error('Feedback submission error:', error);
+                        alert('Terjadi kesalahan jaringan. Periksa koneksi internet Anda dan coba lagi.');
                     } finally {
                         this.loading = false;
                     }
@@ -497,6 +519,24 @@
                     };
                     this.errors = {};
                     this.hoverRating = 0;
+                    this.success = false;
+                },
+
+                // Helper untuk format ID Peserta otomatis uppercase
+                formatIdPeserta() {
+                    this.formData.id_peserta = this.formData.id_peserta.toUpperCase();
+                },
+
+                // Helper untuk count characters
+                getCharacterCount() {
+                    return this.formData.komentar.length;
+                },
+
+                // Helper untuk check if form is valid
+                isFormValid() {
+                    return this.formData.id_peserta.length === 4 &&
+                        this.formData.rating > 0 &&
+                        this.formData.komentar.trim().length >= 10;
                 }
             }
         }

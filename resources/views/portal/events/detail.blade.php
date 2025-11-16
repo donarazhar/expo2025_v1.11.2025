@@ -39,26 +39,28 @@
     <nav class="bg-gradient-to-r from-[#0053C5] to-[#003D91] text-white shadow-lg sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
+                <a href="{{ route('home') }}" class="flex items-center gap-3">
                     <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
                         <img src="{{ asset('assets/img/logohitam.png') }}" alt="Logo" class="h-10 w-auto">
                     </div>
                     <div>
                         <h1 class="text-lg font-black">AL AZHAR EXPO</h1>
-                        <p class="text-xs opacity-90">Portal Jamaah</p>
+                        <p class="text-xs opacity-90">2025</p>
                     </div>
-                </div>
+                </a>
 
                 <div class="hidden md:flex items-center gap-6">
-                    <a href="{{ route('portal.index') }}" class="hover:text-white/80 font-semibold transition">Home</a>
-                    <a href="{{ route('portal.events') }}" class="text-white font-bold">Events</a>
+                    <a href="{{ route('portal.events') }}"
+                        class="text-white font-bold border-b-2 border-white">Events</a>
                     <a href="{{ route('portal.live') }}" class="hover:text-white/80 font-semibold transition">Live</a>
                     <a href="{{ route('portal.gallery') }}"
                         class="hover:text-white/80 font-semibold transition">Gallery</a>
                     <a href="{{ route('portal.faq') }}" class="hover:text-white/80 font-semibold transition">FAQ</a>
+                    <a href="{{ route('portal.feedback') }}"
+                        class="hover:text-white/80 font-semibold transition">Feedback</a>
                 </div>
 
-                <a href="{{ route('portal.events') }}"
+                <a href="{{ route('home') }}"
                     class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-lg font-semibold transition">
                     ← Kembali
                 </a>
@@ -378,37 +380,31 @@
     @endif
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
+    <footer class="bg-gradient-to-br from-[#0053C5] via-[#003D91] to-[#002D70] text-white py-16">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-2xl font-black mb-4">AL AZHAR EXPO 2025</h3>
-                    <p class="text-gray-400">Al Azhar Inspirasi Bangsa</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="flex items-center gap-4">
+                    <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-2xl">
+                        <img src="{{ asset('assets/img/logohitam.png') }}" alt="Logo"
+                            class="h-14 w-auto object-contain">
+                    </div>
+                    <div>
+                        <h3 class="text-3xl font-black mb-1">AL AZHAR EXPO</h3>
+                        <p class="text-white/80 font-semibold">2025</p>
+                    </div>
                 </div>
-
-                <div>
-                    <h4 class="font-bold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="{{ route('portal.index') }}" class="hover:text-white transition">Portal Home</a>
-                        </li>
-                        <li><a href="{{ route('portal.events') }}" class="hover:text-white transition">Events</a>
-                        </li>
-                        <li><a href="{{ route('portal.feedback') }}" class="hover:text-white transition">Feedback</a>
-                        </li>
-                    </ul>
+                <div class="text-center md:text-right text-sm space-y-2 px-5">
+                    <div class="flex flex-col md:flex-row md:space-x-4 md:justify-end">
+                        <a href="#" class="hover:underline">Syarat & Ketentuan</a>
+                        <span class="hidden md:inline">|</span>
+                        <a href="#" class="hover:underline">Kebijakan Privasi</a>
+                    </div>
+                    <p class="opacity-80">© 2025 YPI Al Azhar. All Rights Reserved.</p>
+                    <p class="opacity-80">Al Azhar Expo 2025 | Menjadi sarana kolaborasi, inspirasi, dan
+                        penguatan peran Al Azhar dalam mencetak generasi berakhlak mulia serta memberikan kontribusi
+                        nyata bagi umat, bangsa, dan negeri.
+                    </p>
                 </div>
-
-                <div>
-                    <h4 class="font-bold mb-4">Kontak</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li>📍 Masjid Agung Al Azhar Jakarta</li>
-                        <li>📧 info@alazharexpo.com</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-sm">
-                <p>© 2025 YPI Al Azhar. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
