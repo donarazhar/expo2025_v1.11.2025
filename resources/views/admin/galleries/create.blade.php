@@ -27,11 +27,11 @@
             </div>
 
             <form action="{{ route('admin.galleries.store') }}" method="POST" enctype="multipart/form-data"
-                class="space-y-6" x-data="galleryForm()">
+                class="space-y-6" id="gallery-form">
                 @csrf
 
                 <!-- Image Upload -->
-                <div>
+                <div x-data="imageUploader()">
                     <label class="block text-sm font-semibold text-gray-700 mb-2">
                         Upload Gambar <span class="text-red-500">*</span>
                     </label>
@@ -112,46 +112,43 @@
                 </div>
 
                 <!-- Kategori -->
-                <div>
+                <div x-data="{ mode: 'select' }">
                     <label for="kategori" class="block text-sm font-semibold text-gray-700 mb-2">
                         Kategori <span class="text-red-500">*</span>
                     </label>
 
-                    <div x-data="{ mode: 'select' }">
-                        <!-- Mode Toggle -->
-                        <div class="flex gap-2 mb-3">
-                            <button type="button" @click="mode = 'select'"
-                                :class="mode === 'select' ? 'bg-azhar-blue-500 text-white' : 'bg-gray-200 text-gray-700'"
-                                class="px-4 py-2 rounded-lg text-sm font-semibold transition-all">
-                                Pilih dari Daftar
-                            </button>
-                            <button type="button" @click="mode = 'new'"
-                                :class="mode === 'new' ? 'bg-azhar-blue-500 text-white' : 'bg-gray-200 text-gray-700'"
-                                class="px-4 py-2 rounded-lg text-sm font-semibold transition-all">
-                                Kategori Baru
-                            </button>
-                        </div>
+                    <!-- Mode Toggle -->
+                    <div class="flex gap-2 mb-3">
+                        <button type="button" @click="mode = 'select'"
+                            :class="mode === 'select' ? 'bg-azhar-blue-500 text-white' : 'bg-gray-200 text-gray-700'"
+                            class="px-4 py-2 rounded-lg text-sm font-semibold transition-all">
+                            Pilih dari Daftar
+                        </button>
+                        <button type="button" @click="mode = 'new'"
+                            :class="mode === 'new' ? 'bg-azhar-blue-500 text-white' : 'bg-gray-200 text-gray-700'"
+                            class="px-4 py-2 rounded-lg text-sm font-semibold transition-all">
+                            Kategori Baru
+                        </button>
+                    </div>
 
-                        <!-- Select Existing -->
-                        <div x-show="mode === 'select'" x-cloak>
-                            <select name="kategori"
-                                class="input-field {{ $errors->has('kategori') ? 'border-red-500' : '' }}" required>
-                                <option value="">-- Pilih Kategori --</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category }}"
-                                        {{ old('kategori') == $category ? 'selected' : '' }}>
-                                        {{ $category }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <!-- Select Existing -->
+                    <div x-show="mode === 'select'" x-cloak>
+                        <select name="kategori" id="kategori-select"
+                            class="input-field {{ $errors->has('kategori') ? 'border-red-500' : '' }}">
+                            <option value="">-- Pilih Kategori --</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category }}" {{ old('kategori') == $category ? 'selected' : '' }}>
+                                    {{ $category }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
 
-                        <!-- Input New -->
-                        <div x-show="mode === 'new'" x-cloak>
-                            <input type="text" name="kategori" value="{{ old('kategori') }}"
-                                class="input-field {{ $errors->has('kategori') ? 'border-red-500' : '' }}"
-                                placeholder="Contoh: Opening Ceremony, Workshop, Exhibition">
-                        </div>
+                    <!-- Input New -->
+                    <div x-show="mode === 'new'" x-cloak>
+                        <input type="text" name="kategori_new" id="kategori-new" value="{{ old('kategori') }}"
+                            class="input-field {{ $errors->has('kategori') ? 'border-red-500' : '' }}"
+                            placeholder="Contoh: Opening Ceremony, Workshop, Exhibition">
                     </div>
 
                     @error('kategori')
@@ -218,7 +215,6 @@
                         <li>• Gunakan foto dengan resolusi tinggi untuk hasil terbaik</li>
                         <li>• Format yang didukung: JPEG, JPG, PNG, WebP</li>
                         <li>• Ukuran maksimal file: 5MB</li>
-                        <li>• Thumbnail 300x300px akan dibuat otomatis</li>
                         <li>• Berikan judul yang deskriptif untuk memudahkan pencarian</li>
                     </ul>
                 </div>
@@ -228,7 +224,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script>
-        function galleryForm() {
+        // Image Uploader Component
+        function imageUploader() {
             return {
                 imagePreview: null,
                 imageName: '',
@@ -252,6 +249,21 @@
                 },
 
                 processFile(file) {
+                    // Validate file size (5MB = 5 * 1024 * 1024 bytes)
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('Ukuran file terlalu besar! Maksimal 5MB.');
+                        this.$refs.fileInput.value = '';
+                        return;
+                    }
+
+                    // Validate file type
+                    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                    if (!validTypes.includes(file.type)) {
+                        alert('Format file tidak didukung! Gunakan JPEG, JPG, PNG, atau WebP.');
+                        this.$refs.fileInput.value = '';
+                        return;
+                    }
+
                     this.imageName = file.name;
                     this.imageSize = this.formatFileSize(file.size);
 
@@ -278,5 +290,42 @@
                 }
             }
         }
+
+        // Form Submit Handler - Handle kategori field properly
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('gallery-form');
+
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    // Get kategori value from active mode
+                    const kategoriSelect = document.getElementById('kategori-select');
+                    const kategoriNew = document.getElementById('kategori-new');
+
+                    // Create or update hidden kategori field
+                    let kategoriField = document.querySelector('input[name="kategori"][type="hidden"]');
+                    if (!kategoriField) {
+                        kategoriField = document.createElement('input');
+                        kategoriField.type = 'hidden';
+                        kategoriField.name = 'kategori';
+                        form.appendChild(kategoriField);
+                    }
+
+                    // Set value based on active mode
+                    if (kategoriNew.value.trim()) {
+                        kategoriField.value = kategoriNew.value.trim();
+                        kategoriSelect.removeAttribute('required');
+                    } else {
+                        kategoriField.value = kategoriSelect.value;
+                    }
+
+                    // Validate kategori is not empty
+                    if (!kategoriField.value) {
+                        e.preventDefault();
+                        alert('Kategori wajib diisi!');
+                        return false;
+                    }
+                });
+            }
+        });
     </script>
 @endsection

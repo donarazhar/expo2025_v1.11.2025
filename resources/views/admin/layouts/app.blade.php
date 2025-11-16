@@ -29,8 +29,10 @@
         sidebarOpen: false,
         userMenuOpen: false,
         sidebarCollapsed: false,
-        contentMenuOpen: {{ request()->routeIs('admin.events.*', 'admin.galleries.*', 'admin.live-streams.*', 'admin.faqs.*', 'admin.feedbacks.*') ? 'true' : 'false' }},
-        participantsMenuOpen: {{ request()->routeIs('admin.peserta.*', 'admin.absensi.*', 'admin.sertifikat.*') ? 'true' : 'false' }}
+        contentMenuOpen: {{ request()->routeIs('admin.events.*', 'admin.eventregistrations.*', 'admin.galleries.*', 'admin.live-streams.*', 'admin.faqs.*', 'admin.feedbacks.*') ? 'true' : 'false' }},
+        participantsMenuOpen: {{ request()->routeIs('admin.peserta.*', 'admin.absensi.*', 'admin.sertifikat.*') ? 'true' : 'false' }},
+        lotteryMenuOpen: {{ request()->routeIs('admin.lottery.*', 'admin.prizes.*') ? 'true' : 'false' }},
+        systemMenuOpen: {{ request()->routeIs('admin.activity-logs.*') ? 'true' : 'false' }}
     }">
 
         <!-- Sidebar Desktop -->
@@ -88,12 +90,12 @@
 
                     <div class="border-t border-white/10 my-4" x-show="!sidebarCollapsed"></div>
 
-                    <!-- Menu Group: Konten Website -->
+                    <!-- Menu Group: Konten & Informasi -->
                     <template x-if="!sidebarCollapsed">
                         <div>
                             <button @click="contentMenuOpen = !contentMenuOpen"
                                 class="flex items-center justify-between w-full px-4 py-2 text-xs font-semibold text-white/50 uppercase tracking-wider hover:text-white/70 transition-colors">
-                                <span>Konten Website</span>
+                                <span>Konten & Informasi</span>
                                 <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': contentMenuOpen }"
                                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -116,6 +118,17 @@
                                     </path>
                                 </svg>
                                 <span class="font-medium">Events</span>
+                            </a>
+
+                            <a href="{{ route('admin.eventregistrations.index') }}"
+                                class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('admin.eventregistrations.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors space-x-3">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                                    </path>
+                                </svg>
+                                <span class="font-medium">Event Registrations</span>
                             </a>
 
                             <a href="{{ route('admin.galleries.index') }}"
@@ -173,6 +186,16 @@
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                            </a>
+
+                            <a href="{{ route('admin.eventregistrations.index') }}"
+                                class="flex items-center justify-center px-4 py-3 rounded-lg {{ request()->routeIs('admin.eventregistrations.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors"
+                                title="Event Registrations">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
                                     </path>
                                 </svg>
                             </a>
@@ -304,41 +327,154 @@
                                 title="Sertifikat">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 33.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
                                     </path>
                                 </svg>
                             </a>
                         </div>
                     </template>
 
-                    <div class="border-t border-white/10 my-4"></div>
+                    <div class="border-t border-white/10 my-4" x-show="!sidebarCollapsed"></div>
 
-                    <a href="{{ route('home') }}" target="_blank"
-                        class="flex items-center px-4 py-3 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors"
-                        :class="sidebarCollapsed ? 'justify-center' : 'space-x-3'"
-                        :title="sidebarCollapsed ? 'Lihat Website' : ''">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                        </svg>
-                        <span class="font-medium" x-show="!sidebarCollapsed">Lihat Website</span>
-                    </a>
+                    <!-- Menu Group: Sistem Doorprize -->
+                    <template x-if="!sidebarCollapsed">
+                        <div>
+                            <button @click="lotteryMenuOpen = !lotteryMenuOpen"
+                                class="flex items-center justify-between w-full px-4 py-2 text-xs font-semibold text-white/50 uppercase tracking-wider hover:text-white/70 transition-colors">
+                                <span>Sistem Doorprize</span>
+                                <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': lotteryMenuOpen }"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </template>
+
+                    <!-- Lottery Menu Items - Expanded View -->
+                    <template x-if="!sidebarCollapsed">
+                        <div x-show="lotteryMenuOpen" x-collapse>
+                            <a href="{{ route('admin.lottery.index') }}"
+                                class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('admin.lottery.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors space-x-3">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7">
+                                    </path>
+                                </svg>
+                                <span class="font-medium">Doorprize</span>
+                            </a>
+
+                            <a href="{{ route('admin.prizes.index') }}"
+                                class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('admin.prizes.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors space-x-3">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                    </path>
+                                </svg>
+                                <span class="font-medium">Hadiah</span>
+                            </a>
+                        </div>
+                    </template>
+
+                    <!-- Lottery Menu Icons - Collapsed View -->
+                    <template x-if="sidebarCollapsed">
+                        <div class="space-y-2">
+                            <a href="{{ route('admin.lottery.index') }}"
+                                class="flex items-center justify-center px-4 py-3 rounded-lg {{ request()->routeIs('admin.lottery.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors"
+                                title="Doorprize">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7">
+                                    </path>
+                                </svg>
+                            </a>
+
+                            <a href="{{ route('admin.prizes.index') }}"
+                                class="flex items-center justify-center px-4 py-3 rounded-lg {{ request()->routeIs('admin.prizes.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors"
+                                title="Hadiah">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </template>
+
+                    <div class="border-t border-white/10 my-4" x-show="!sidebarCollapsed"></div>
+
+                    <!-- Menu Group: Sistem & Utilitas -->
+                    <template x-if="!sidebarCollapsed">
+                        <div>
+                            <button @click="systemMenuOpen = !systemMenuOpen"
+                                class="flex items-center justify-between w-full px-4 py-2 text-xs font-semibold text-white/50 uppercase tracking-wider hover:text-white/70 transition-colors">
+                                <span>Sistem & Utilitas</span>
+                                <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': systemMenuOpen }"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 9l-7 7-7-7">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                    </template>
+
+                    <!-- System Menu Items - Expanded View -->
+                    <template x-if="!sidebarCollapsed">
+                        <div x-show="systemMenuOpen" x-collapse>
+                            <a href="{{ route('admin.activity-logs.index') }}"
+                                class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('admin.activity-logs.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors space-x-3">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="font-medium">Activity Logs</span>
+                            </a>
+
+                            <a href="{{ route('home') }}" target="_blank"
+                                class="flex items-center px-4 py-3 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors space-x-3">
+                                <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                    </path>
+                                </svg>
+                                <span class="font-medium">Lihat Website</span>
+                            </a>
+                        </div>
+                    </template>
+
+                    <!-- System Menu Icons - Collapsed View -->
+                    <template x-if="sidebarCollapsed">
+                        <div class="space-y-2">
+                            <a href="{{ route('admin.activity-logs.index') }}"
+                                class="flex items-center justify-center px-4 py-3 rounded-lg {{ request()->routeIs('admin.activity-logs.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors"
+                                title="Activity Logs">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </a>
+
+                            <a href="{{ route('home') }}" target="_blank"
+                                class="flex items-center justify-center px-4 py-3 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors"
+                                title="Lihat Website">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </template>
                 </nav>
 
                 <!-- Logout Button at Bottom -->
                 <div class="p-4 border-t border-white/10">
-
-                    <!-- Activity Logs - Desktop Only -->
-                    <a href="{{ route('admin.activity-logs.index') }}"
-                        class="flex items-center px-4 py-3 rounded-lg mb-2 {{ request()->routeIs('admin.activity-logs.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors"
-                        :class="sidebarCollapsed ? 'justify-center' : 'space-x-3'"
-                        :title="sidebarCollapsed ? 'Activity Logs' : ''">
-                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                        <span class="font-medium" x-show="!sidebarCollapsed">Activity Logs</span>
-                    </a>
                     <form action="{{ route('admin.logout') }}" method="POST">
                         @csrf
                         <button type="submit"
@@ -365,8 +501,6 @@
                         </svg>
                     </button>
                 </div>
-
-
             </div>
         </aside>
 
@@ -419,11 +553,11 @@
 
                 <div class="border-t border-white/10 my-4"></div>
 
-                <!-- Menu Group: Konten Website -->
+                <!-- Menu Group: Konten & Informasi -->
                 <div>
                     <button @click="contentMenuOpen = !contentMenuOpen"
                         class="flex items-center justify-between w-full px-4 py-2 text-xs font-semibold text-white/50 uppercase tracking-wider hover:text-white/70 transition-colors">
-                        <span>Konten Website</span>
+                        <span>Konten & Informasi</span>
                         <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': contentMenuOpen }"
                             fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
@@ -441,6 +575,16 @@
                             </path>
                         </svg>
                         <span class="font-medium">Events</span>
+                    </a>
+
+                    <a href="{{ route('admin.eventregistrations.index') }}"
+                        class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.eventregistrations.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Event Registrations</span>
                     </a>
 
                     <a href="{{ route('admin.galleries.index') }}"
@@ -533,14 +677,75 @@
 
                 <div class="border-t border-white/10 my-4"></div>
 
-                <a href="{{ route('home') }}" target="_blank"
-                    class="flex items-center space-x-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                    </svg>
-                    <span class="font-medium">Lihat Website</span>
-                </a>
+                <!-- Menu Group: Sistem Doorprize -->
+                <div>
+                    <button @click="lotteryMenuOpen = !lotteryMenuOpen"
+                        class="flex items-center justify-between w-full px-4 py-2 text-xs font-semibold text-white/50 uppercase tracking-wider hover:text-white/70 transition-colors">
+                        <span>Sistem Doorprize</span>
+                        <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': lotteryMenuOpen }"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div x-show="lotteryMenuOpen" x-collapse class="space-y-1">
+                    <a href="{{ route('admin.lottery.index') }}"
+                        class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.lottery.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Doorprize</span>
+                    </a>
+
+                    <a href="{{ route('admin.prizes.index') }}"
+                        class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.prizes.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Hadiah</span>
+                    </a>
+                </div>
+
+                <div class="border-t border-white/10 my-4"></div>
+
+                <!-- Menu Group: Sistem & Utilitas -->
+                <div>
+                    <button @click="systemMenuOpen = !systemMenuOpen"
+                        class="flex items-center justify-between w-full px-4 py-2 text-xs font-semibold text-white/50 uppercase tracking-wider hover:text-white/70 transition-colors">
+                        <span>Sistem & Utilitas</span>
+                        <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': systemMenuOpen }"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div x-show="systemMenuOpen" x-collapse class="space-y-1">
+                    <a href="{{ route('admin.activity-logs.index') }}"
+                        class="flex items-center space-x-3 px-4 py-3 rounded-lg {{ request()->routeIs('admin.activity-logs.*') ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/10 hover:text-white' }} transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="font-medium">Activity Logs</span>
+                    </a>
+
+                    <a href="{{ route('home') }}" target="_blank"
+                        class="flex items-center space-x-3 px-4 py-3 rounded-lg text-white/70 hover:bg-white/10 hover:text-white transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                        <span class="font-medium">Lihat Website</span>
+                    </a>
+                </div>
             </nav>
 
             <!-- Logout Button Mobile -->

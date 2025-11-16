@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
-use App\Models\EventRegistration;
 use App\Models\Faq;
+use App\Models\Event;
+use App\Models\Absensi;
+use App\Models\Peserta;
 use App\Models\Feedback;
 use App\Models\Gallery;
 use App\Models\LiveStream;
-use App\Models\Peserta;
+use App\Models\EventRegistration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class PortalController extends Controller
@@ -140,86 +142,285 @@ class PortalController extends Controller
     // Register for Event
     public function registerEvent(Request $request, $id)
     {
-        $request->validate([
-            'id_peserta' => 'required|exists:peserta,id_peserta',
-        ]);
-
-        $event = Event::findOrFail($id);
-        $peserta = Peserta::where('id_peserta', $request->id_peserta)->first();
-
-        $exists = EventRegistration::where('id_peserta', $request->id_peserta)
-            ->where('event_id', $id)
-            ->exists();
-
-        if ($exists) {
-            // Log failed registration (already registered)
-            activity('portal')
-                ->performedOn($event)
-                ->withProperties([
-                    'action' => 'register_event_failed',
-                    'reason' => 'already_registered',
-                    'peserta_id' => $request->id_peserta,
-                    'peserta_nama' => $peserta->nama_lengkap ?? 'Unknown',
-                    'event_id' => $event->id,
-                    'event_title' => $event->judul,
-                    'ip_address' => request()->ip(),
-                ])
-                ->log("Pendaftaran event gagal (sudah terdaftar): {$peserta->nama_lengkap} - {$event->judul}");
+        // Validate input
+        try {
+            $request->validate([
+                'id_peserta' => 'required|exists:peserta,id_peserta',
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Validation failed', ['error' => $e->getMessage()]);
 
             return response()->json([
                 'success' => false,
-                'message' => 'Anda sudah terdaftar untuk event ini!',
+                'message' => 'ID Peserta tidak valid!',
             ], 422);
         }
 
-        if ($event->is_full) {
-            // Log failed registration (event full)
-            activity('portal')
-                ->performedOn($event)
-                ->withProperties([
-                    'action' => 'register_event_failed',
-                    'reason' => 'event_full',
-                    'peserta_id' => $request->id_peserta,
-                    'peserta_nama' => $peserta->nama_lengkap ?? 'Unknown',
-                    'event_id' => $event->id,
-                    'event_title' => $event->judul,
-                    'ip_address' => request()->ip(),
-                ])
-                ->log("Pendaftaran event gagal (penuh): {$peserta->nama_lengkap} - {$event->judul}");
+        try {
+            DB::beginTransaction();
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Maaf, event sudah penuh!',
-            ], 422);
-        }
+            \Log::info('=== START PORTAL EVENT REGISTRATION ===', [
+                'id_peserta' => $request->id_peserta,
+                'event_id' => $id,
+                'ip' => request()->ip(),
+            ]);
 
-        $registration = EventRegistration::create([
-            'id_peserta' => $request->id_peserta,
-            'event_id' => $id,
-            'status' => 'confirmed',
-        ]);
+            // Get event
+            $event = Event::findOrFail($id);
+            \Log::info('Event found', ['event_id' => $event->id, 'title' => $event->judul]);
 
-        // Log successful registration
-        activity('portal')
-            ->performedOn($event)
-            ->withProperties([
-                'action' => 'register_event_success',
+            // Get peserta
+            $peserta = Peserta::where('id_peserta', $request->id_peserta)->first();
+
+            if (! $peserta) {
+                \Log::error('Peserta not found', ['id_peserta' => $request->id_peserta]);
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data peserta tidak ditemukan!',
+                ], 404);
+            }
+
+            \Log::info('Peserta found', [
+                'id_peserta' => $peserta->id_peserta,
+                'nama' => $peserta->nama_lengkap,
+                'qr_token' => $peserta->qr_code_token ?? 'NULL',
+            ]);
+
+            // Check if peserta has qr_code_token
+            if (empty($peserta->qr_code_token)) {
+                \Log::error('Peserta does not have qr_code_token', [
+                    'id_peserta' => $peserta->id_peserta,
+                ]);
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Data QR Code peserta tidak valid. Silakan hubungi panitia.',
+                ], 422);
+            }
+
+            // ========================================
+            // 1. CHECK EVENT REGISTRATION (Per Event)
+            // ========================================
+            $existingRegistration = EventRegistration::where('id_peserta', $request->id_peserta)
+                ->where('event_id', $id)
+                ->first();
+
+            if ($existingRegistration) {
+                \Log::warning('Already registered for this event');
+
+                try {
+                    activity('portal')
+                        ->performedOn($event)
+                        ->withProperties([
+                            'action' => 'register_event_failed',
+                            'reason' => 'already_registered',
+                            'peserta_id' => $request->id_peserta,
+                            'peserta_nama' => $peserta->nama_lengkap,
+                            'event_id' => $event->id,
+                            'event_title' => $event->judul,
+                            'ip_address' => request()->ip(),
+                        ])
+                        ->log("Pendaftaran event gagal (sudah terdaftar): {$peserta->nama_lengkap} - {$event->judul}");
+                } catch (\Exception $e) {
+                    \Log::error('Activity log failed', ['error' => $e->getMessage()]);
+                }
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Anda sudah terdaftar untuk event ini!',
+                    'data' => [
+                        'registered_at' => $existingRegistration->created_at->format('d M Y H:i'),
+                    ],
+                ], 422);
+            }
+
+            // Check if event is full
+            if ($event->is_full) {
+                \Log::warning('Event is full');
+
+                try {
+                    activity('portal')
+                        ->performedOn($event)
+                        ->withProperties([
+                            'action' => 'register_event_failed',
+                            'reason' => 'event_full',
+                            'peserta_id' => $request->id_peserta,
+                            'peserta_nama' => $peserta->nama_lengkap,
+                            'event_id' => $event->id,
+                            'event_title' => $event->judul,
+                            'ip_address' => request()->ip(),
+                        ])
+                        ->log("Pendaftaran event gagal (penuh): {$peserta->nama_lengkap} - {$event->judul}");
+                } catch (\Exception $e) {
+                    \Log::error('Activity log failed', ['error' => $e->getMessage()]);
+                }
+
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Maaf, event sudah penuh!',
+                ], 422);
+            }
+
+            // ========================================
+            // 2. CREATE EVENT REGISTRATION (Can be multiple per peserta)
+            // ========================================
+            \Log::info('Creating event registration...');
+
+            $registration = EventRegistration::create([
+                'id_peserta' => $request->id_peserta,
+                'event_id' => $id,
+                'status' => 'confirmed',
+            ]);
+
+            \Log::info('✓ Event registration created', [
                 'registration_id' => $registration->id,
-                'peserta_id' => $request->id_peserta,
-                'peserta_nama' => $peserta->nama_lengkap ?? 'Unknown',
-                'peserta_email' => $peserta->email ?? null,
-                'event_id' => $event->id,
-                'event_title' => $event->judul,
-                'event_tanggal' => $event->tanggal_mulai->format('Y-m-d'),
-                'ip_address' => request()->ip(),
-                'user_agent' => request()->userAgent(),
-            ])
-            ->log("Peserta berhasil mendaftar event: {$peserta->nama_lengkap} - {$event->judul}");
+                'status' => $registration->status,
+            ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Pendaftaran berhasil!',
-        ]);
+            // ========================================
+            // 3. CREATE ABSENSI (Only once per peserta)
+            // ========================================
+            $absensiCreated = false;
+            $absensi = null;
+
+            \Log::info('Checking if absensi exists...');
+            $existingAbsensi = Absensi::where('qr_code_token', $peserta->qr_code_token)->first();
+
+            if ($existingAbsensi) {
+                \Log::info('Absensi already exists, skipping creation', [
+                    'absensi_id' => $existingAbsensi->id,
+                    'created_at' => $existingAbsensi->created_at,
+                ]);
+                $absensi = $existingAbsensi;
+            } else {
+                try {
+                    \Log::info('Creating first-time absensi record...');
+
+                    $absensiData = [
+                        'qr_code_token' => $peserta->qr_code_token,
+                        'waktu_scan' => now(),
+                        'petugas_scanner' => 'Portal Registration',
+                        'status_kehadiran' => true,
+                        'keterangan' => 'First registration via portal for event: '.$event->judul,
+                    ];
+
+                    \Log::info('Absensi data prepared:', $absensiData);
+
+                    $absensi = Absensi::create($absensiData);
+                    $absensiCreated = true;
+
+                    \Log::info('✓ Absensi created successfully!', [
+                        'absensi_id' => $absensi->id,
+                        'id_peserta' => $peserta->id_peserta,
+                        'nama' => $peserta->nama_lengkap,
+                    ]);
+
+                } catch (\Exception $e) {
+                    \Log::error('✗ Failed to create absensi', [
+                        'error' => $e->getMessage(),
+                        'file' => $e->getFile(),
+                        'line' => $e->getLine(),
+                    ]);
+                    // Don't fail the whole registration if only absensi fails
+                }
+            }
+
+            // ========================================
+            // 4. LOG ACTIVITY
+            // ========================================
+            try {
+                activity('portal')
+                    ->performedOn($event)
+                    ->withProperties([
+                        'action' => 'register_event_success',
+                        'registration_id' => $registration->id,
+                        'absensi_id' => $absensi->id ?? null,
+                        'absensi_created' => $absensiCreated,
+                        'peserta_id' => $request->id_peserta,
+                        'peserta_nama' => $peserta->nama_lengkap,
+                        'peserta_email' => $peserta->email ?? null,
+                        'peserta_instansi' => $peserta->asal_instansi ?? null,
+                        'event_id' => $event->id,
+                        'event_title' => $event->judul,
+                        'event_tanggal' => $event->tanggal_mulai->format('Y-m-d'),
+                        'ip_address' => request()->ip(),
+                        'user_agent' => request()->userAgent(),
+                    ])
+                    ->log("Peserta berhasil mendaftar event: {$peserta->nama_lengkap} - {$event->judul}");
+            } catch (\Exception $e) {
+                \Log::error('Activity log failed', ['error' => $e->getMessage()]);
+            }
+
+            DB::commit();
+
+            \Log::info('=== PORTAL REGISTRATION SUCCESS ===', [
+                'registration_id' => $registration->id,
+                'absensi_id' => $absensi->id ?? null,
+                'absensi_created' => $absensiCreated,
+            ]);
+
+            // ========================================
+            // 5. RETURN RESPONSE
+            // ========================================
+            $message = 'Pendaftaran berhasil!';
+            if ($absensiCreated) {
+                $message .= ' Absensi Anda juga telah tercatat.';
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => $message,
+                'data' => [
+                    'registration_id' => $registration->id,
+                    'absensi_id' => $absensi->id ?? null,
+                    'absensi_created' => $absensiCreated,
+                    'peserta_nama' => $peserta->nama_lengkap,
+                    'peserta_id' => $peserta->id_peserta,
+                    'event_title' => $event->judul,
+                    'event_date' => $event->tanggal_mulai->format('d M Y'),
+                    'event_time' => $event->tanggal_mulai->format('H:i').' - '.$event->tanggal_selesai->format('H:i'),
+                    'event_location' => $event->lokasi ?? null,
+                    'registered_at' => $registration->created_at->format('d M Y H:i:s'),
+                ],
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            \Log::error('=== ERROR IN PORTAL EVENT REGISTRATION ===', [
+                'error_message' => $e->getMessage(),
+                'error_file' => $e->getFile(),
+                'error_line' => $e->getLine(),
+                'error_trace' => $e->getTraceAsString(),
+                'request_data' => $request->all(),
+            ]);
+
+            // Log failed registration
+            try {
+                activity('portal')
+                    ->withProperties([
+                        'action' => 'register_event_error',
+                        'error' => $e->getMessage(),
+                        'peserta_id' => $request->id_peserta ?? null,
+                        'event_id' => $id,
+                        'ip_address' => request()->ip(),
+                    ])
+                    ->log('Error saat pendaftaran event: '.$e->getMessage());
+            } catch (\Exception $logError) {
+                \Log::error('Activity log also failed', ['error' => $logError->getMessage()]);
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan saat mendaftar. Silakan coba lagi.',
+                'debug' => config('app.debug') ? [
+                    'error' => $e->getMessage(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                ] : null,
+            ], 500);
+        }
     }
 
     // Live Streaming

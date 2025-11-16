@@ -13,7 +13,7 @@ class EventRegistration extends Model
         'id_peserta',  // Changed from peserta_id
         'event_id',
         'status',
-        'keterangan'
+        'keterangan',
     ];
 
     public function peserta()
@@ -34,5 +34,27 @@ class EventRegistration extends Model
     public function scopePending($query)
     {
         return $query->where('status', 'pending');
+    }
+
+    // Tambahkan relationship ini
+    public function lotteryWinners()
+    {
+        return $this->hasMany(LotteryWinner::class, 'registration_id');
+    }
+
+    public function hasWonPrize($prizeId = null)
+    {
+        $query = $this->lotteryWinners();
+
+        if ($prizeId) {
+            $query->where('prize_id', $prizeId);
+        }
+
+        return $query->exists();
+    }
+
+    public function totalPrizesWon()
+    {
+        return $this->lotteryWinners()->count();
     }
 }

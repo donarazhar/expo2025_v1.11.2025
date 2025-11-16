@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\AbsensiController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\Portal\FeedbackController;
+use App\Http\Controllers\Portal\ForgotIdController;
+use App\Http\Controllers\PortalController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -64,6 +66,27 @@ Route::prefix('portal')->name('portal.')->group(function () {
         ->name('feedback.featured');
 
     Route::get('/faq', [App\Http\Controllers\PortalController::class, 'faq'])->name('faq');
+
+    // Event Registration from Portal
+    Route::post('events/{event}/register', [PortalController::class, 'registerEvent'])
+        ->name('event.register');
+
+    // Check Registration Status (API endpoint)
+    Route::get('check-registration/{idPeserta}', [PortalController::class, 'checkRegistration'])
+        ->name('check-registration');
+
+    // My Registrations (requires id_peserta in query)
+    Route::get('my-registrations', [PortalController::class, 'myRegistrations'])
+        ->name('my-registrations');
+
+    // Cancel Registration
+    Route::post('registrations/{registration}/cancel', [PortalController::class, 'cancelRegistration'])
+        ->name('registration.cancel');
+
+    // Forgot ID - Public Access (No Auth Required)
+    Route::get('lupa-id', [ForgotIdController::class, 'show'])->name('forgot-id');
+    Route::post('lupa-id', [ForgotIdController::class, 'search'])->name('forgot-id.search');
+
 });
 
 // Include Admin Routes

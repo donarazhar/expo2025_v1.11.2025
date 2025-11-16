@@ -249,4 +249,34 @@ class Event extends Model
         // Untuk tracking popularity (opsional, bisa ditambah kolom view_count)
         // $this->increment('view_count');
     }
+
+    // ============================================
+    // LOTTERY & PRIZES RELATIONSHIPS
+    // ============================================
+
+    /**
+     * Hadiah yang terkait dengan event ini
+     */
+    // Di dalam class Event
+
+    public function prizes()
+    {
+        return $this->hasMany(Prize::class);
+    }
+
+    public function lotteryWinners()
+    {
+        return $this->hasMany(LotteryWinner::class);
+    }
+
+    /**
+     * Get all available prizes (event-specific + general)
+     */
+    public function availablePrizes()
+    {
+        return Prize::where(function ($query) {
+            $query->where('event_id', $this->id)
+                ->orWhereNull('event_id');
+        })->where('sisa', '>', 0)->ordered();
+    }
 }

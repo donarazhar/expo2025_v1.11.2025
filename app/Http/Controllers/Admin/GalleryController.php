@@ -127,17 +127,6 @@ class GalleryController extends Controller
             // Store original image
             $path = $image->storeAs('galleries', $filename, 'public');
             $validated['image_path'] = $path;
-
-            // Create thumbnail (300x300)
-            $thumbnailFilename = 'thumb_'.$filename;
-            $thumbnailPath = storage_path('app/public/galleries/'.$thumbnailFilename);
-
-            // Read and resize image using Intervention Image v3
-            $img = $this->imageManager->read($image->getRealPath());
-            $img->cover(300, 300);
-            $img->save($thumbnailPath, quality: 80);
-
-            $validated['thumbnail'] = 'galleries/'.$thumbnailFilename;
         }
 
         Gallery::create($validated);
@@ -190,12 +179,9 @@ class GalleryController extends Controller
 
         // Handle image upload
         if ($request->hasFile('image')) {
-            // Delete old images
+            // Delete old image
             if ($gallery->image_path) {
                 Storage::disk('public')->delete($gallery->image_path);
-            }
-            if ($gallery->thumbnail) {
-                Storage::disk('public')->delete($gallery->thumbnail);
             }
 
             $image = $request->file('image');
@@ -204,16 +190,6 @@ class GalleryController extends Controller
             // Store original image
             $path = $image->storeAs('galleries', $filename, 'public');
             $validated['image_path'] = $path;
-
-            // Create thumbnail
-            $thumbnailFilename = 'thumb_'.$filename;
-            $thumbnailPath = storage_path('app/public/galleries/'.$thumbnailFilename);
-
-            $img = $this->imageManager->read($image->getRealPath());
-            $img->cover(300, 300);
-            $img->save($thumbnailPath, quality: 80);
-
-            $validated['thumbnail'] = 'galleries/'.$thumbnailFilename;
         }
 
         $gallery->update($validated);
@@ -227,12 +203,9 @@ class GalleryController extends Controller
      */
     public function destroy(Gallery $gallery)
     {
-        // Delete images
+        // Delete image
         if ($gallery->image_path) {
             Storage::disk('public')->delete($gallery->image_path);
-        }
-        if ($gallery->thumbnail) {
-            Storage::disk('public')->delete($gallery->thumbnail);
         }
 
         $gallery->delete();
@@ -275,12 +248,9 @@ class GalleryController extends Controller
         $galleries = Gallery::whereIn('id', $validated['gallery_ids'])->get();
 
         foreach ($galleries as $gallery) {
-            // Delete images
+            // Delete image
             if ($gallery->image_path) {
                 Storage::disk('public')->delete($gallery->image_path);
-            }
-            if ($gallery->thumbnail) {
-                Storage::disk('public')->delete($gallery->thumbnail);
             }
             $gallery->delete();
         }

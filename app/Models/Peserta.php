@@ -107,9 +107,16 @@ class Peserta extends Model
             ->withTimestamps();
     }
 
+    // Di dalam class Peserta
+
     public function absensi()
     {
         return $this->hasMany(Absensi::class, 'qr_code_token', 'qr_code_token');
+    }
+
+    public function lotteryWinners()
+    {
+        return $this->hasMany(LotteryWinner::class, 'qr_code_token', 'qr_code_token');
     }
 
     public function eSertifikat()

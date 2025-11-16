@@ -274,58 +274,176 @@
                                         <input type="text" x-model="idPeserta" maxlength="4"
                                             placeholder="Contoh: A7K2"
                                             class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition font-semibold uppercase"
+                                            x-bind:class="{ 'border-red-500': errorMessage, 'border-green-500': successMessage }"
                                             required>
                                         <p class="text-xs text-gray-500 mt-1">Masukkan ID peserta Anda (4 karakter)</p>
                                     </div>
 
-                                    <p x-show="errorMessage" x-text="errorMessage"
-                                        class="text-red-500 text-sm font-semibold bg-red-50 p-3 rounded-lg" x-cloak>
-                                    </p>
+                                    <!-- Error Message -->
+                                    <div x-show="errorMessage" x-transition:enter="transition ease-out duration-300"
+                                        x-transition:enter-start="opacity-0 transform scale-95"
+                                        x-transition:enter-end="opacity-100 transform scale-100"
+                                        x-transition:leave="transition ease-in duration-200"
+                                        x-transition:leave-start="opacity-100 transform scale-100"
+                                        x-transition:leave-end="opacity-0 transform scale-95"
+                                        class="bg-red-50 border-l-4 border-red-500 rounded-lg p-4" x-cloak>
+                                        <div class="flex items-start">
+                                            <svg class="w-6 h-6 text-red-500 mr-3 flex-shrink-0" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <div class="flex-1">
+                                                <h3 class="text-sm font-bold text-red-800 mb-1">Pendaftaran Gagal</h3>
+                                                <p class="text-sm text-red-700" x-text="errorMessage"></p>
+                                            </div>
+                                            <button type="button" x-on:click="errorMessage = ''"
+                                                class="text-red-500 hover:text-red-700 ml-2">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
 
-                                    <p x-show="successMessage" x-text="successMessage"
-                                        class="text-green-600 text-sm font-semibold bg-green-50 p-3 rounded-lg"
-                                        x-cloak></p>
+                                    <!-- Success Message -->
+                                    <div x-show="successMessage" x-transition:enter="transition ease-out duration-300"
+                                        x-transition:enter-start="opacity-0 transform scale-95"
+                                        x-transition:enter-end="opacity-100 transform scale-100"
+                                        x-transition:leave="transition ease-in duration-200"
+                                        x-transition:leave-start="opacity-100 transform scale-100"
+                                        x-transition:leave-end="opacity-0 transform scale-95"
+                                        class="bg-green-50 border-l-4 border-green-500 rounded-lg p-4" x-cloak>
+                                        <div class="flex items-start">
+                                            <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <div class="flex-1">
+                                                <h3 class="text-sm font-bold text-green-800 mb-1">Pendaftaran Berhasil!
+                                                    🎉</h3>
+                                                <p class="text-sm text-green-700" x-text="successMessage"></p>
+                                                <p class="text-xs text-green-600 mt-2">Halaman akan dimuat ulang...</p>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <button type="submit" x-bind:disabled="loading"
-                                        class="w-full bg-gradient-to-r from-[#0053C5] to-[#003D91] text-white px-6 py-4 rounded-xl font-bold hover:shadow-xl transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
-                                        <span x-show="!loading">✨ Daftar Event Ini</span>
-                                        <span x-show="loading">Memproses...</span>
+                                        class="w-full bg-gradient-to-r from-[#0053C5] to-[#003D91] text-white px-6 py-4 rounded-xl font-bold hover:shadow-xl transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center">
+                                        <span x-show="!loading" class="flex items-center">
+                                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 4v16m8-8H4"></path>
+                                            </svg>
+                                            Daftar Event Ini
+                                        </span>
+                                        <span x-show="loading" class="flex items-center">
+                                            <svg class="animate-spin w-5 h-5 mr-2" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+                                                </path>
+                                            </svg>
+                                            Memproses...
+                                        </span>
                                     </button>
                                 </form>
+                                <div class="mt-6">
+                                    <div class="mt-6 space-y-3">
+                                        <!-- Belum Punya ID Card -->
+                                        <div
+                                            class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                                            <div class="flex items-start gap-3">
+                                                <div
+                                                    class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <svg class="w-5 h-5 text-blue-600" fill="none"
+                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z">
+                                                        </path>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p class="text-sm font-semibold text-gray-900 mb-1">Belum punya ID
+                                                        Peserta?</p>
+                                                    <p class="text-xs text-gray-600 mb-2">Daftar terlebih dahulu untuk
+                                                        mendapatkan ID Peserta</p>
+                                                    <a href="{{ route('home') }}#registrasi"
+                                                        class="inline-flex items-center gap-1 text-sm font-bold text-[#0053C5] hover:text-[#003D99] transition-colors">
+                                                        Daftar Sekarang
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                <div class="mt-4 p-4 bg-blue-50 rounded-xl">
-                                    <p class="text-xs text-gray-600">
-                                        💡 <strong>Belum punya ID?</strong> <a href="{{ route('home') }}#registrasi"
-                                            class="text-[#0053C5] font-bold hover:underline">Daftar dulu</a> sebagai
-                                        peserta
-                                    </p>
-                                </div>
-                            @elseif($event->is_full)
-                                <!-- Full Event -->
-                                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6 text-center">
-                                    <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
-                                        </path>
-                                    </svg>
-                                    <h3 class="text-xl font-bold text-gray-900 mb-2">Event Penuh</h3>
-                                    <p class="text-gray-600 text-sm">Maaf, kapasitas event sudah terpenuhi. Lihat event
-                                        lainnya!</p>
-                                </div>
-                            @elseif($event->is_past)
-                                <!-- Past Event -->
-                                <div class="bg-gray-50 border-2 border-gray-200 rounded-xl p-6 text-center">
-                                    <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                        </path>
-                                    </svg>
-                                    <h3 class="text-xl font-bold text-gray-900 mb-2">Event Sudah Lewat</h3>
-                                    <p class="text-gray-600 text-sm">Event ini sudah selesai. Lihat event mendatang
-                                        lainnya!</p>
-                                </div>
+                                        <!-- Lupa ID Card -->
+                                        <div
+                                            class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-4 hover:shadow-md transition-shadow">
+                                            <div class="flex items-start gap-3">
+                                                <div
+                                                    class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                                    <svg class="w-5 h-5 text-amber-600" fill="none"
+                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                                    </svg>
+                                                </div>
+                                                <div class="flex-1">
+                                                    <p class="text-sm font-semibold text-gray-900 mb-1">Lupa ID
+                                                        Peserta?</p>
+                                                    <p class="text-xs text-gray-600 mb-2">Cari ID menggunakan email
+                                                        yang terdaftar</p>
+                                                    <a href="{{ route('portal.forgot-id') }}"
+                                                        class="inline-flex items-center gap-1 text-sm font-bold text-[#0053C5] hover:text-[#003D99] transition-colors">
+                                                        Cari ID Saya
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @elseif($event->is_full)
+                                    <!-- Full Event -->
+                                    <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6 text-center">
+                                        <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                                            </path>
+                                        </svg>
+                                        <h3 class="text-xl font-bold text-gray-900 mb-2">Event Penuh</h3>
+                                        <p class="text-gray-600 text-sm">Maaf, kapasitas event sudah terpenuhi. Lihat
+                                            event
+                                            lainnya!</p>
+                                    </div>
+                                @elseif($event->is_past)
+                                    <!-- Past Event -->
+                                    <div class="bg-gray-50 border-2 border-gray-200 rounded-xl p-6 text-center">
+                                        <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                            </path>
+                                        </svg>
+                                        <h3 class="text-xl font-bold text-gray-900 mb-2">Event Sudah Lewat</h3>
+                                        <p class="text-gray-600 text-sm">Event ini sudah selesai. Lihat event mendatang
+                                            lainnya!</p>
+                                    </div>
                             @endif
 
                             <!-- Share Buttons -->
@@ -418,14 +536,24 @@
                 successMessage: '',
 
                 async submitRegistration() {
-                    if (!this.idPeserta || this.idPeserta.length !== 4) {
-                        this.errorMessage = 'ID Peserta harus 4 karakter!';
+                    // Reset messages
+                    this.errorMessage = '';
+                    this.successMessage = '';
+
+                    // Validation
+                    if (!this.idPeserta) {
+                        this.errorMessage = 'ID Peserta wajib diisi!';
+                        this.scrollToMessage();
+                        return;
+                    }
+
+                    if (this.idPeserta.length !== 4) {
+                        this.errorMessage = 'ID Peserta harus terdiri dari 4 karakter!';
+                        this.scrollToMessage();
                         return;
                     }
 
                     this.loading = true;
-                    this.errorMessage = '';
-                    this.successMessage = '';
 
                     try {
                         const response = await fetch(
@@ -443,32 +571,123 @@
 
                         const data = await response.json();
 
-                        if (data.success) {
-                            this.successMessage = data.message;
+                        if (response.ok && data.success) {
+                            this.successMessage = data.message ||
+                                'Anda berhasil terdaftar di event ini!';
                             this.idPeserta = '';
+                            this.scrollToMessage();
+
+                            // Reload after 3 seconds
                             setTimeout(() => {
                                 window.location.reload();
-                            }, 2000);
+                            }, 3000);
                         } else {
-                            this.errorMessage = data.message;
+                            this.errorMessage = data.message ||
+                                'Terjadi kesalahan saat mendaftar. Silakan coba lagi.';
+                            this.scrollToMessage();
                         }
                     } catch (error) {
-                        console.error(error);
-                        this.errorMessage = 'Terjadi kesalahan. Silakan coba lagi.';
+                        console.error('Registration error:', error);
+                        this.errorMessage =
+                            'Terjadi kesalahan pada server. Silakan coba lagi nanti.';
+                        this.scrollToMessage();
                     } finally {
                         this.loading = false;
                     }
                 },
 
+                scrollToMessage() {
+                    // Scroll to form to show message
+                    this.$nextTick(() => {
+                        const messageElement = this.$el.querySelector(
+                            '[x-show="errorMessage"], [x-show="successMessage"]');
+                        if (messageElement) {
+                            messageElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'center'
+                            });
+                        }
+                    });
+                },
+
                 copyLink() {
                     const url = window.location.href;
-                    navigator.clipboard.writeText(url).then(() => {
-                        alert('Link berhasil disalin!');
-                    });
+
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(url).then(() => {
+                            // Show toast notification
+                            this.showToast('Link berhasil disalin!');
+                        }).catch(err => {
+                            console.error('Failed to copy:', err);
+                            this.fallbackCopyLink(url);
+                        });
+                    } else {
+                        this.fallbackCopyLink(url);
+                    }
+                },
+
+                fallbackCopyLink(url) {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = url;
+                    textArea.style.position = 'fixed';
+                    textArea.style.left = '-999999px';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        this.showToast('Link berhasil disalin!');
+                    } catch (err) {
+                        console.error('Fallback copy failed:', err);
+                        alert('Link: ' + url);
+                    }
+                    document.body.removeChild(textArea);
+                },
+
+                showToast(message) {
+                    // Create toast element
+                    const toast = document.createElement('div');
+                    toast.className =
+                        'fixed bottom-4 right-4 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-slide-up';
+                    toast.innerHTML = `
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>${message}</span>
+                    </div>
+                `;
+                    document.body.appendChild(toast);
+
+                    // Remove after 3 seconds
+                    setTimeout(() => {
+                        toast.style.opacity = '0';
+                        toast.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            document.body.removeChild(toast);
+                        }, 300);
+                    }, 3000);
                 }
             }));
         });
     </script>
+
+    <style>
+        @keyframes slide-up {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-slide-up {
+            animation: slide-up 0.3s ease-out;
+        }
+    </style>
 
 </body>
 

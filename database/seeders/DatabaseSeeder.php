@@ -18,33 +18,33 @@ class DatabaseSeeder extends Seeder
             // 1. Admin Users (Independent)
             AdminUserSeeder::class,
 
-            // 2. Peserta (Independent)
+            // // 2. Peserta (Independent)
             PesertaSeeder::class,
 
-            // 3. Events (Independent)
+            // // 3. Events (Independent)
             EventSeeder::class,
 
-            // 4. Event Registrations (Depends on: Peserta, Events)
-            EventRegistrationSeeder::class,
+            // // 4. Event Registrations (Depends on: Peserta, Events)
+            // EventRegistrationSeeder::class,
 
-            // 5. Live Streams (Depends on: Events)
-            LiveStreamSeeder::class,
+            // // 5. Live Streams (Depends on: Events)
+            // LiveStreamSeeder::class,
 
-            // 6. Gallery (Depends on: Events)
-            GallerySeeder::class,
+            // // 6. Gallery (Depends on: Events)
+            // GallerySeeder::class,
 
-            // 7. FAQs (Independent)
+            // // 7. FAQs (Independent)
             FaqSeeder::class,
 
-            // 8. Feedback (Depends on: Peserta, Events)
-            FeedbackSeeder::class,
+            // // 8. Feedback (Depends on: Peserta, Events)
+            // FeedbackSeeder::class,
         ]);
 
-        $this->command->info("\n✅ All seeders completed successfully!");
-        $this->command->info("🎉 Database is ready for testing!\n");
+        // $this->command->info("\n✅ All seeders completed successfully!");
+        // $this->command->info("🎉 Database is ready for testing!\n");
 
-        // Display summary
-        $this->displaySummary();
+        // // Display summary
+        // $this->displaySummary();
     }
 
     private function displaySummary()

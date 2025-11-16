@@ -14,7 +14,7 @@ class Gallery extends Model
         'judul',
         'deskripsi',
         'image_path',
-        'thumbnail',
+        // 'thumbnail', // HAPUS ATAU TAMBAHKAN tergantung pilihan
         'kategori',
         'urutan',
     ];
@@ -31,12 +31,24 @@ class Gallery extends Model
         return $query->orderBy('urutan');
     }
 
-    // Helper
+    // Helper - Use same image for thumbnail if column doesn't exist
     public function getImageUrlAttribute()
     {
         if ($this->image_path) {
-            return asset('storage/' . $this->image_path);
+            return asset('storage/'.$this->image_path);
         }
+
         return asset('assets/img/no-image.jpg');
+    }
+
+    public function getThumbnailUrlAttribute()
+    {
+        // If thumbnail column exists and has value
+        if (isset($this->thumbnail) && $this->thumbnail) {
+            return asset('storage/'.$this->thumbnail);
+        }
+
+        // Fallback to main image
+        return $this->image_url;
     }
 }

@@ -5,11 +5,14 @@ use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\EventRegistrationController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\FeedbackController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\LiveStreamController;
+use App\Http\Controllers\Admin\LotteryController;
 use App\Http\Controllers\Admin\PesertaController;
+use App\Http\Controllers\Admin\PrizeController;
 use App\Http\Controllers\Admin\SertifikatController;
 use Illuminate\Support\Facades\Route;
 
@@ -143,6 +146,52 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::get('/activity-logs/{activity}', [ActivityLogController::class, 'show'])
             ->name('activity-logs.show');
+
+        // Lottery System
+        Route::prefix('lottery')->name('lottery.')->group(function () {
+            Route::get('/', [LotteryController::class, 'index'])->name('index');
+
+            // GENERAL LOTTERY - HARUS DI ATAS ROUTE {event}
+            Route::get('general', [LotteryController::class, 'general'])->name('general');
+            Route::get('general/prize/{prize}/participants', [LotteryController::class, 'getGeneralParticipants'])->name('general.participants');
+            Route::post('general/prize/{prize}/draw', [LotteryController::class, 'drawGeneral'])->name('general.draw');
+
+            Route::get('/{event}', [LotteryController::class, 'show'])->name('show');
+            Route::get('/{event}/prize/{prize}/participants', [LotteryController::class, 'getEligibleParticipants'])->name('participants');
+            Route::post('/{event}/prize/{prize}/draw', [LotteryController::class, 'draw'])->name('draw');
+            Route::get('/{event}/export', [LotteryController::class, 'export'])->name('export');
+
+            // Winner Management
+            Route::post('winner/{winner}/claim', [LotteryController::class, 'claim'])->name('winner.claim');
+            Route::post('winner/{winner}/unclaim', [LotteryController::class, 'unclaim'])->name('winner.unclaim');
+            Route::delete('winner/{winner}', [LotteryController::class, 'destroy'])->name('winner.destroy');
+
+            // Statistics
+            Route::get('{event}/statistics', [LotteryController::class, 'statistics'])->name('statistics');
+
+        });
+
+        // Prize Management
+        Route::resource('prizes', PrizeController::class);
+        Route::post('prizes/{prize}/restore-stock', [PrizeController::class, 'restoreStock'])->name('prizes.restore-stock');
+
+        // Event Registration CRUD
+        Route::resource('eventregistrations', EventRegistrationController::class)->parameters([
+            'eventregistrations' => 'registration',
+        ]);
+
+        // routes/web.php (admin)
+        Route::get('eventregistrations/check-absensi/{id_peserta}',
+            [EventRegistrationController::class, 'checkAbsensiStatus'])
+            ->name('eventregistrations.check-absensi');
+
+        // Bulk Actions
+        Route::post('eventregistrations/bulk-update', [EventRegistrationController::class, 'bulkUpdateStatus'])
+            ->name('eventregistrations.bulk-update');
+
+        // Export
+        Route::get('eventregistrations/export', [EventRegistrationController::class, 'export'])
+            ->name('eventregistrations.export');
 
     });
 });
