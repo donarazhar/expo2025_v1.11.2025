@@ -8,7 +8,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}">
     <title>Al Azhar Expo 2025 - Al Azhar Inspirasi Bangsa</title>
-    
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -297,7 +297,8 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="reveal">
-                    <img src="{{ asset('assets/img/tinysalam.png') }}" alt="Solusi" class="w-full max-w-md mx-auto">
+                    <img src="{{ asset('assets/img/tinysalam.png') }}" alt="Solusi"
+                        class="w-full max-w-md mx-auto">
                 </div>
                 <div class="reveal space-y-6 text-center lg:text-left">
                     <h3 class="text-3xl lg:text-4xl font-extrabold text-[#0053C5]">#All in One Edu-Apps
@@ -593,107 +594,308 @@
                 <p class="text-gray-600 text-lg">Isi formulir untuk mendaftar sebagai peserta Al Azhar Expo 2025</p>
             </div>
 
-            <!-- Success Message -->
+            <!-- Success Message - Modern & Responsive -->
             <div x-show="success" x-cloak x-transition
-                class="mb-8 bg-gradient-to-r from-[#0053C5] to-[#003D91] text-white p-8 rounded-3xl shadow-2xl">
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center flex-shrink-0">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
-                            </path>
-                        </svg>
+                class="mb-6 sm:mb-8 bg-gradient-to-br from-[#0053C5] via-[#003D91] to-[#002366] text-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
+
+                <!-- Success Header with Icon -->
+                <div class="bg-white/10 backdrop-blur-sm p-4 sm:p-6 border-b border-white/20">
+                    <div class="flex items-center gap-3 sm:gap-4">
+                        <div
+                            class="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-full flex items-center justify-center flex-shrink-0 animate-bounce">
+                            <svg class="w-6 h-6 sm:w-8 sm:h-8 text-[#0053C5]" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="text-xl sm:text-2xl md:text-3xl font-black">Pendaftaran Berhasil! 🎉</h3>
+                            <p class="text-sm sm:text-base text-white/80 mt-1">Selamat bergabung di Al Azhar Expo 2025
+                            </p>
+                        </div>
                     </div>
-                    <div class="flex-1">
-                        <h3 class="text-2xl font-bold mb-4">Pendaftaran Berhasil! 🎉</h3>
+                </div>
 
-                        <div class="bg-white/20 rounded-2xl p-6 mb-4">
-                            <p class="text-sm font-semibold mb-2">ID PESERTA ANDA:</p>
-                            <p class="text-5xl font-black tracking-wider mb-2" x-text="registrationId"></p>
-                            <p class="text-sm opacity-90">⚠️ Simpan ID ini baik-baik!</p>
+                <!-- Success Body -->
+                <div class="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
+
+                    <!-- ID Card -->
+                    <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
+                        <div class="text-center">
+                            <p class="text-xs sm:text-sm font-bold text-gray-600 mb-2 uppercase tracking-wide">ID
+                                Peserta Anda</p>
+                            <div
+                                class="bg-gradient-to-r from-[#0053C5] to-[#003D91] text-white rounded-xl p-4 sm:p-6 mb-3">
+                                <p class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-wider"
+                                    x-text="registrationId"></p>
+                            </div>
+                            <div
+                                class="flex items-center justify-center gap-2 bg-yellow-50 border-2 border-yellow-300 rounded-lg p-3">
+                                <svg class="w-5 h-5 text-yellow-600 flex-shrink-0" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                                    </path>
+                                </svg>
+                                <p class="text-xs sm:text-sm font-bold text-yellow-800">Simpan ID ini baik-baik untuk
+                                    check-in!</p>
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="space-y-2 text-sm bg-white/10 rounded-xl p-4">
-                            <p class="font-bold text-lg mb-2">📋 Cara Check-in di Hari H:</p>
-                            <ol class="list-decimal list-inside space-y-2 ml-2">
-                                <li><strong>Buka:</strong> <a href="{{ route('check-in.form') }}"
-                                        class="underline hover:text-white/80">{{ url('/check-in') }}</a></li>
-                                <li><strong>Masukkan</strong> ID Peserta Anda</li>
-                                <li><strong>QR Code</strong> akan muncul otomatis</li>
-                                <li><strong>Scan</strong> QR di tablet entrance</li>
-                            </ol>
+                    <!-- Instructions Card -->
+                    <div
+                        class="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20">
+                        <h4 class="font-black text-base sm:text-lg md:text-xl mb-3 sm:mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                                </path>
+                            </svg>
+                            Cara Check-in di Hari H
+                        </h4>
+
+                        <div class="space-y-3 sm:space-y-4">
+                            <!-- Step 1 -->
+                            <div class="flex gap-3 sm:gap-4">
+                                <div
+                                    class="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0 font-black text-[#0053C5] text-sm sm:text-base">
+                                    1</div>
+                                <div class="flex-1">
+                                    <p class="font-bold text-sm sm:text-base mb-1">Buka Portal Event</p>
+                                    <a href="{{ route('portal.events') }}"
+                                        class="text-xs sm:text-sm text-white/80 hover:text-white underline break-all">
+                                        {{ url('/portal/events') }}
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div class="flex gap-3 sm:gap-4">
+                                <div
+                                    class="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0 font-black text-[#0053C5] text-sm sm:text-base">
+                                    2</div>
+                                <div class="flex-1">
+                                    <p class="font-bold text-sm sm:text-base mb-1">Masukkan ID Peserta</p>
+                                    <p class="text-xs sm:text-sm text-white/80">Gunakan ID yang tertera di atas</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div class="flex gap-3 sm:gap-4">
+                                <div
+                                    class="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0 font-black text-[#0053C5] text-sm sm:text-base">
+                                    3</div>
+                                <div class="flex-1">
+                                    <p class="font-bold text-sm sm:text-base mb-1">QR Code Muncul Otomatis</p>
+                                    <p class="text-xs sm:text-sm text-white/80">Screenshot untuk backup</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 4 -->
+                            <div class="flex gap-3 sm:gap-4">
+                                <div
+                                    class="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0 font-black text-[#0053C5] text-sm sm:text-base">
+                                    4</div>
+                                <div class="flex-1">
+                                    <p class="font-bold text-sm sm:text-base mb-1">Scan di Entrance</p>
+                                    <p class="text-xs sm:text-sm text-white/80">Tunjukkan QR ke petugas</p>
+                                </div>
+                            </div>
                         </div>
+                    </div>
 
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                        <a href="{{ route('portal.events') }}"
+                            class="flex-1 bg-white text-[#0053C5] px-4 sm:px-6 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-base hover:bg-white/90 transition-all text-center flex items-center justify-center gap-2 shadow-lg">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z">
+                                </path>
+                            </svg>
+                            Lihat QR Code
+                        </a>
                         <button x-on:click="success = false; resetForm()"
-                            class="mt-4 bg-white text-[#0053C5] px-6 py-2 rounded-full font-bold hover:bg-white/90 transition">
+                            class="flex-1 bg-white/20 border-2 border-white text-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-base hover:bg-white/30 transition-all text-center">
                             Daftar Lagi
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Registration Form -->
+            <!-- Registration Form - Modern & Responsive -->
             <div x-show="!success" x-transition>
-                <form x-on:submit.prevent="submitForm" class="gradient-border p-10 reveal">
-                    <div class="space-y-6 relative z-10">
+                <form x-on:submit.prevent="submitForm"
+                    class="bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden reveal">
+
+                    <!-- Form Header -->
+                    <div class="bg-gradient-to-r from-[#0053C5] to-[#003D91] p-6 sm:p-8 text-white">
+                        <h3 class="text-2xl sm:text-3xl font-black mb-2">Form Pendaftaran</h3>
+                        <p class="text-sm sm:text-base text-white/80">Lengkapi data diri Anda dengan benar</p>
+                    </div>
+
+                    <!-- Form Body -->
+                    <div class="p-6 sm:p-8 md:p-10 space-y-5 sm:space-y-6">
+
                         <!-- Nama Lengkap -->
                         <div>
-                            <label class="block text-sm font-bold text-gray-900 mb-3">Nama Lengkap *</label>
+                            <label
+                                class="block text-sm sm:text-base font-bold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
+                                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#0053C5]" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                                Nama Lengkap <span class="text-red-500">*</span>
+                            </label>
                             <input type="text" x-model="formData.nama_lengkap"
-                                class="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
+                                class="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
                                 placeholder="Masukkan nama lengkap">
                             <p x-show="errors.nama_lengkap" x-text="errors.nama_lengkap"
-                                class="text-red-500 text-sm mt-2 font-semibold"></p>
+                                class="text-red-500 text-xs sm:text-sm mt-2 font-semibold flex items-center gap-1">
+                                <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </p>
                         </div>
 
                         <!-- Email -->
                         <div>
-                            <label class="block text-sm font-bold text-gray-900 mb-3">Email *</label>
+                            <label
+                                class="block text-sm sm:text-base font-bold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
+                                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#0053C5]" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                                Email <span class="text-red-500">*</span>
+                            </label>
                             <input type="email" x-model="formData.email"
-                                class="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
+                                class="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
                                 placeholder="contoh@email.com">
                             <p x-show="errors.email" x-text="errors.email"
-                                class="text-red-500 text-sm mt-2 font-semibold"></p>
+                                class="text-red-500 text-xs sm:text-sm mt-2 font-semibold flex items-center gap-1">
+                                <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </p>
                         </div>
 
                         <!-- No HP -->
                         <div>
-                            <label class="block text-sm font-bold text-gray-900 mb-3">No. HP/WhatsApp *</label>
+                            <label
+                                class="block text-sm sm:text-base font-bold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
+                                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#0053C5]" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                                    </path>
+                                </svg>
+                                No. HP/WhatsApp <span class="text-red-500">*</span>
+                            </label>
                             <input type="tel" x-model="formData.no_hp"
-                                class="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
+                                class="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
                                 placeholder="081234567890">
                             <p x-show="errors.no_hp" x-text="errors.no_hp"
-                                class="text-red-500 text-sm mt-2 font-semibold"></p>
+                                class="text-red-500 text-xs sm:text-sm mt-2 font-semibold flex items-center gap-1">
+                                <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </p>
                         </div>
 
                         <!-- Asal Instansi -->
                         <div>
-                            <label class="block text-sm font-bold text-gray-900 mb-3">Asal Instansi/Sekolah *</label>
+                            <label
+                                class="block text-sm sm:text-base font-bold text-gray-900 mb-2 sm:mb-3 flex items-center gap-2">
+                                <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#0053C5]" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                    </path>
+                                </svg>
+                                Asal Instansi/Sekolah <span class="text-red-500">*</span>
+                            </label>
                             <input type="text" x-model="formData.asal_instansi"
-                                class="w-full px-6 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
+                                class="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base border-2 border-gray-200 rounded-xl sm:rounded-2xl focus:ring-4 focus:ring-[#0053C5]/20 focus:border-[#0053C5] transition-all font-medium"
                                 placeholder="Masukkan asal instansi/sekolah">
                             <p x-show="errors.asal_instansi" x-text="errors.asal_instansi"
-                                class="text-red-500 text-sm mt-2 font-semibold"></p>
+                                class="text-red-500 text-xs sm:text-sm mt-2 font-semibold flex items-center gap-1">
+                                <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </p>
+                        </div>
+
+                        <!-- Info Box -->
+                        <div class="bg-blue-50 border-2 border-blue-200 rounded-xl sm:rounded-2xl p-4 sm:p-5">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <div class="text-xs sm:text-sm text-blue-800">
+                                    <p class="font-bold mb-1">📝 Informasi Penting:</p>
+                                    <ul class="space-y-1 ml-4 list-disc">
+                                        <li>Pastikan data yang diisi <strong>benar dan valid</strong></li>
+                                        <li>Email akan digunakan untuk <strong>konfirmasi dan notifikasi</strong></li>
+                                        <li>Simpan <strong>ID Peserta</strong> yang akan diberikan setelah registrasi
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
-                    <div class="mt-10 relative z-10">
+                    <!-- Form Footer -->
+                    <div class="bg-gray-50 p-6 sm:p-8 space-y-4 sm:space-y-5">
+                        <!-- Submit Button -->
                         <button type="submit" x-bind:disabled="loading"
-                            class="w-full text-white px-8 py-5 rounded-2xl font-bold text-lg transition-all transform shadow-xl bg-gradient-to-r from-[#0053C5] to-[#003D91] hover:shadow-2xl hover:scale-105 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none">
-                            <span x-show="!loading">Daftar Sekarang →</span>
-                            <span x-show="loading">Memproses...</span>
+                            class="w-full text-white px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg transition-all transform shadow-xl bg-gradient-to-r from-[#0053C5] to-[#003D91] hover:shadow-2xl hover:scale-105 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2 sm:gap-3">
+                            <span x-show="!loading" class="flex items-center gap-2">
+                                Daftar Sekarang
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                            </span>
+                            <span x-show="loading" class="flex items-center gap-2">
+                                <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10"
+                                        stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor"
+                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                    </path>
+                                </svg>
+                                Memproses...
+                            </span>
                         </button>
+
+                        <!-- Terms -->
+                        <p class="text-center text-xs sm:text-sm text-gray-600">
+                            Dengan mendaftar, Anda menyetujui
+                            <a href="#" class="text-[#0053C5] hover:underline font-semibold">Syarat &
+                                Ketentuan</a>
+                            kami
+                        </p>
                     </div>
                 </form>
-
-                <!-- Help Text -->
-                <div class="mt-8 text-center">
-                    <p class="text-gray-600 text-sm">
-                        Dengan mendaftar, Anda menyetujui <a href="#"
-                            class="text-[#0053C5] hover:underline">Syarat & Ketentuan</a>
-                    </p>
-                </div>
             </div>
+
         </div>
     </section>
 
