@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
 
             // // 8. Feedback (Depends on: Peserta, Events)
-            // FeedbackSeeder::class,
+            FeedbackSeeder::class,
         ]);
 
         // $this->command->info("\n✅ All seeders completed successfully!");

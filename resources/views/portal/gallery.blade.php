@@ -219,15 +219,15 @@
                                 x-on:click="openLightbox(
                                     {{ $gallery->id }}, 
                                     '{{ $gallery->video_url ? 'video' : 'image' }}', 
-                                    '{{ $gallery->video_url ? $gallery->video_url : asset('storage/' . $gallery->file_path) }}', 
+                                    '{{ $gallery->video_url ? $gallery->video_url : asset('storage/' . $gallery->image_path) }}', 
                                     '{{ $gallery->judul }}', 
                                     '{{ $gallery->deskripsi ?? '' }}'
                                 )">
 
                                 <!-- Image/Video Thumbnail -->
                                 <div class="relative overflow-hidden">
-                                    @if ($gallery->file_path)
-                                        <img src="{{ asset('storage/' . $gallery->file_path) }}"
+                                    @if ($gallery->image_path)
+                                        <img src="{{ asset('storage/' . $gallery->image_path) }}"
                                             alt="{{ $gallery->judul }}" class="w-full h-auto object-cover">
                                     @else
                                         <div

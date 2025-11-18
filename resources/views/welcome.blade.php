@@ -182,7 +182,7 @@
     <!-- Hero -->
     <section id="beranda" class="relative min-h-screen flex items-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('assets/img/tinyhero.png') }}" alt="Hero" class="w-full h-full object-cover">
+            <img src="{{ asset('assets/img/tinybghero.png') }}" alt="Hero" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-br from-[#0053C5]/10 via-[#0053C5]/30 to-[#003D91]/25"></div>
             <div class="absolute top-20 left-10 w-72 h-72 bg-white/5 rounded-full blur-3xl pulse-slow"></div>
             <div class="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl pulse-slow"
@@ -203,8 +203,8 @@
                         <div class="h-1 w-24 bg-white rounded-full mb-6"></div>
                         <p class="text-2xl lg:text-3xl font-bold mb-4">"Al Azhar Inspirasi Bangsa"</p>
                         <p class="text-lg text-white/80 leading-relaxed max-w-xl">
-                            Momentum kolaborasi seluruh elemen Al Azhar untuk menunjukkan karya, gagasan, dan inovasi
-                            yang menginspirasi umat, bangsa, dan negeri melalui sinergi pendidikan, dakwah, dan sosial
+                            Sinergi Pendidikan, Dakwah, dan Sosial: Beradab dalam Kemodernan, Siap Menjawab Tantangan
+                            Masa Depan
                         </p>
                     </div>
 
@@ -242,7 +242,7 @@
 
                 <div class="hidden lg:flex items-center justify-center fade-in-up delay-400">
                     <div class="float">
-                        <img src="{{ asset('assets/img/tinyadsheros.png') }}" alt="Ads"
+                        <img src="{{ asset('assets/img/tinyads.png') }}" alt="Ads"
                             class="w-full h-auto rounded-3xl">
                     </div>
                 </div>
@@ -297,17 +297,18 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="reveal">
-                    <img src="{{ asset('assets/img/tinysalam.png') }}" alt="Solusi"
+                    <img src="{{ asset('assets/img/tinydonasilaz.png') }}" alt="Solusi"
                         class="w-full max-w-md mx-auto">
                 </div>
                 <div class="reveal space-y-6 text-center lg:text-left">
-                    <h3 class="text-3xl lg:text-4xl font-extrabold text-[#0053C5]">#All in One Edu-Apps
+                    <h3 class="text-3xl lg:text-4xl font-extrabold text-[#0053C5]">Sudahkah anda berdonasi hari ini?
                     </h3>
-                    <p class="text-gray-600 text-lg">Cara termudah untuk membantu aktivitas Al Azhar kamu. Kamu dapat
-                        melakukan pembayaran, melihat jadwal, mendaftar sekolah dan masih banyak lagi!</p>
-                    <a href="https://salam-alazhar.id/" target="_blank"
+                    <p class="text-gray-600 text-lg">Yuk pindai (scan) kode QR code atau klik link dibawah ini untuk
+                        melanjutkan ke halaman donasi Al Azhar Peduli, Anda bisa melakukan donasi pada web tersebut
+                        dengan banyak pilihan donasi.</p>
+                    <a href="https://donasi.alazharpeduli.or.id/" target="_blank"
                         class="inline-block px-10 py-4 bg-[#0053C5] text-white font-semibold rounded-full shadow-lg hover:bg-[#0040A0] transition">
-                        Kunjungi Salam Al Azhar →
+                        Donasi Sekarang →
                     </a>
                 </div>
             </div>
@@ -565,7 +566,7 @@
                     <a href="{{ route('portal.gallery') }}"
                         class="card-hover bg-white rounded-3xl overflow-hidden shadow-lg reveal group">
                         <div class="relative overflow-hidden">
-                            <img src="{{ asset('assets/img/gal' . $i . '.jpg') }}" alt="Galeri {{ $i }}"
+                            <img src="{{ asset('assets/img/gal' . $i . '.jpeg') }}" alt="Galeri {{ $i }}"
                                 class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110 rounded-3xl">
                         </div>
                     </a>
@@ -610,8 +611,9 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-xl sm:text-2xl md:text-3xl font-black">Pendaftaran Berhasil! 🎉</h3>
-                            <p class="text-sm sm:text-base text-white/80 mt-1">Selamat bergabung di Al Azhar Expo 2025
+                            <h3 class="text-xl sm:text-2xl md:text-3xl font-black">Selamat, Berhasil! 🎉</h3>
+                            <p class="text-sm sm:text-base text-white/80 mt-1">
+                                Anda sudah terdaftar sebagai pengunjung Al Azhar Expo 2025
                             </p>
                         </div>
                     </div>
@@ -620,111 +622,77 @@
                 <!-- Success Body -->
                 <div class="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
 
-                    <!-- ID Card -->
+                    <!-- Step 1: Your ID -->
                     <div class="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
-                        <div class="text-center">
-                            <p class="text-xs sm:text-sm font-bold text-gray-600 mb-2 uppercase tracking-wide">ID
-                                Peserta Anda</p>
+                        <div class="flex items-start gap-3 mb-4">
                             <div
-                                class="bg-gradient-to-r from-[#0053C5] to-[#003D91] text-white rounded-xl p-4 sm:p-6 mb-3">
-                                <p class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-wider"
+                                class="w-8 h-8 bg-gradient-to-r from-[#0053C5] to-[#003D91] text-white rounded-full flex items-center justify-center flex-shrink-0 font-black text-sm">
+                                1
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-base sm:text-lg font-black text-gray-800 mb-1">ID Peserta Anda</h4>
+                                <p class="text-xs sm:text-sm text-gray-600">Simpan ID ini untuk mendaftar kegiatan</p>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <div
+                                class="bg-gradient-to-r from-[#0053C5] to-[#003D91] text-white rounded-xl p-4 sm:p-6 mb-3 relative overflow-hidden">
+                                <div class="absolute inset-0 bg-white/10 backdrop-blur-sm"></div>
+                                <p class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-wider relative z-10"
                                     x-text="registrationId"></p>
                             </div>
-                            <div
-                                class="flex items-center justify-center gap-2 bg-yellow-50 border-2 border-yellow-300 rounded-lg p-3">
-                                <svg class="w-5 h-5 text-yellow-600 flex-shrink-0" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24">
+
+                            <!-- Copy Button -->
+                            <button @click="copyToClipboard(registrationId)"
+                                class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-3 rounded-lg font-bold text-sm transition-all flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z">
                                     </path>
                                 </svg>
-                                <p class="text-xs sm:text-sm font-bold text-yellow-800">Simpan ID ini baik-baik untuk
-                                    check-in!</p>
-                            </div>
+                                <span x-show="!copied">Copy ID Peserta</span>
+                                <span x-show="copied" class="text-green-600">✓ Tersalin!</span>
+                            </button>
                         </div>
                     </div>
 
-                    <!-- Instructions Card -->
+                    <!-- Step 2: Register for Activities -->
                     <div
-                        class="bg-white/10 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/20">
-                        <h4 class="font-black text-base sm:text-lg md:text-xl mb-3 sm:mb-4 flex items-center gap-2">
-                            <svg class="w-5 h-5 sm:w-6 sm:h-6 flex-shrink-0" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
-                                </path>
-                            </svg>
-                            Cara Check-in di Hari H
-                        </h4>
-
-                        <div class="space-y-3 sm:space-y-4">
-                            <!-- Step 1 -->
-                            <div class="flex gap-3 sm:gap-4">
-                                <div
-                                    class="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0 font-black text-[#0053C5] text-sm sm:text-base">
-                                    1</div>
-                                <div class="flex-1">
-                                    <p class="font-bold text-sm sm:text-base mb-1">Buka Portal Event</p>
-                                    <a href="{{ route('portal.events') }}"
-                                        class="text-xs sm:text-sm text-white/80 hover:text-white underline break-all">
-                                        {{ url('/portal/events') }}
-                                    </a>
-                                </div>
+                        class="bg-gradient-to-br from-[#0053C5] to-[#003D91] rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg text-white">
+                        <div class="flex items-start gap-3 mb-4">
+                            <div
+                                class="w-8 h-8 bg-white text-[#0053C5] rounded-full flex items-center justify-center flex-shrink-0 font-black text-sm">
+                                2
                             </div>
-
-                            <!-- Step 2 -->
-                            <div class="flex gap-3 sm:gap-4">
-                                <div
-                                    class="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0 font-black text-[#0053C5] text-sm sm:text-base">
-                                    2</div>
-                                <div class="flex-1">
-                                    <p class="font-bold text-sm sm:text-base mb-1">Masukkan ID Peserta</p>
-                                    <p class="text-xs sm:text-sm text-white/80">Gunakan ID yang tertera di atas</p>
-                                </div>
+                            <div class="flex-1">
+                                <p class="text-sm sm:text-base text-white/90 mb-4">
+                                    Untuk mendaftar Events silahkan klik link berikut :
+                                </p>
                             </div>
+                        </div>
 
-                            <!-- Step 3 -->
-                            <div class="flex gap-3 sm:gap-4">
-                                <div
-                                    class="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0 font-black text-[#0053C5] text-sm sm:text-base">
-                                    3</div>
-                                <div class="flex-1">
-                                    <p class="font-bold text-sm sm:text-base mb-1">QR Code Muncul Otomatis</p>
-                                    <p class="text-xs sm:text-sm text-white/80">Screenshot untuk backup</p>
-                                </div>
-                            </div>
-
-                            <!-- Step 4 -->
-                            <div class="flex gap-3 sm:gap-4">
-                                <div
-                                    class="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-full flex items-center justify-center flex-shrink-0 font-black text-[#0053C5] text-sm sm:text-base">
-                                    4</div>
-                                <div class="flex-1">
-                                    <p class="font-bold text-sm sm:text-base mb-1">Scan di Entrance</p>
-                                    <p class="text-xs sm:text-sm text-white/80">Tunjukkan QR ke petugas</p>
-                                </div>
+                        <a href="{{ route('portal.events') }}"
+                            class="block w-full bg-white text-[#0053C5] px-6 py-4 rounded-xl font-black text-base sm:text-lg hover:bg-white/95 transition-all text-center shadow-lg">
+                            Daftar Events Al Azhar Expo 2025 →
+                        </a><br>
+                        <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 mb-4 border border-white/20">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-yellow-300 flex-shrink-0 mt-0.5" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <p class="text-xs sm:text-sm text-white/90">
+                                    <span class="font-bold">Gunakan ID peserta</span> yang sudah Anda copy untuk
+                                    mendaftar ke Events pilihan Anda.
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                        <a href="{{ route('portal.events') }}"
-                            class="flex-1 bg-white text-[#0053C5] px-4 sm:px-6 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-base hover:bg-white/90 transition-all text-center flex items-center justify-center gap-2 shadow-lg">
-                            <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z">
-                                </path>
-                            </svg>
-                            Lihat QR Code
-                        </a>
-                        <button x-on:click="success = false; resetForm()"
-                            class="flex-1 bg-white/20 border-2 border-white text-white px-4 sm:px-6 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-base hover:bg-white/30 transition-all text-center">
-                            Daftar Lagi
-                        </button>
-                    </div>
                 </div>
+
             </div>
 
             <!-- Registration Form - Modern & Responsive -->
